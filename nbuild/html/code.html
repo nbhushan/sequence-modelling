@@ -1,0 +1,1432 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Code &mdash; SimegyLoadModelling 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SimegyLoadModelling 1.0.0 documentation" href="index.html" />
+    <link rel="prev" title="How to..?" href="howto.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="howto.html" title="How to..?"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SimegyLoadModelling 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="code">
+<h1>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-qdhmm">
+<span id="qdhmm"></span><h2>QDHMM<a class="headerlink" href="#module-qdhmm" title="Permalink to this headline">¶</a></h2>
+<p>Created on Thu May 30 15:38:44 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="class">
+<dt id="qdhmm.QDHMM">
+<em class="property">class </em><tt class="descclassname">qdhmm.</tt><tt class="descname">QDHMM</tt><big>(</big><em>p</em>, <em>zeta</em>, <em>eta</em>, <em>O</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>The QDHMM object.</p>
+<p class="rubric">Notes</p>
+<p>The QDHMM is an extension to a standard HMM.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="9%" />
+<col width="84%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>p</td>
+<td>float</td>
+<td>initial probability distribution for the active state.</td>
+</tr>
+<tr class="row-even"><td>zeta</td>
+<td>float</td>
+<td>probability of self transitions in active state.</td>
+</tr>
+<tr class="row-odd"><td>eta</td>
+<td>float</td>
+<td>probability of self transitions in inactive state.</td>
+</tr>
+<tr class="row-even"><td>O</td>
+<td>object</td>
+<td>QDHMM Emission Model</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="qdhmm.QDHMM.alpha">
+<tt class="descname">alpha</tt><big>(</big><em>B</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute alpha (forward) values.</p>
+<blockquote>
+<div>alpha [i,n] =  joint probability of being in state i, 
+after observing 1..N observations.   .</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>B</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation probability matrix.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>alphahat</strong> : ndarray</p>
+<blockquote>
+<div><p>The scaled alpha values.</p>
+</div></blockquote>
+<p><strong>c</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The scaling factors.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Refer to Rabiner&#8217;s paper <a class="reference internal" href="#r1">[R1]</a> for the scaling factors used here.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Rabiner, L. A tutorial on hidden Markov models and selected 
+applications in speech recognition Proceedings of the IEEE, 
+1989, 77, 257-286.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qdhmm.QDHMM.beta">
+<tt class="descname">beta</tt><big>(</big><em>B</em>, <em>c</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute beta (backward) values.</p>
+<blockquote>
+<div>beta [i,n] =  conditional probability generating observations 
+Y_n+1..Y_N, given Z_n.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>B</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation probability matrix.</p>
+</div></blockquote>
+<p><strong>c</strong> : ndarray</p>
+<blockquote>
+<div><p>The scaling factors obtained from the alpha computation</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>betahat</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The scaled beta values.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>DO NOT call the beta function before calling the alpha function.  
+Refer to Rabiner&#8217;s paper <a class="reference internal" href="#r2">[R2]</a> for the scaling factors used here.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R2]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Rabiner, L. A tutorial on hidden Markov models and selected 
+applications in speech recognition Proceedings of the IEEE, 
+1989, 77, 257-286.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qdhmm.QDHMM.buildTransmat">
+<tt class="descname">buildTransmat</tt><big>(</big><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.buildTransmat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds the sparse transition matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A</strong> : scipy.sparse.csr_matrix</p>
+<blockquote class="last">
+<div><p>The sparse transition matrix.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qdhmm.QDHMM.gammaKsi">
+<tt class="descname">gammaKsi</tt><big>(</big><em>B</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.gammaKsi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute gamma (posterior distribution) values.</p>
+<blockquote>
+<div>gamma [i,n] =  conditional probability of the event state &#8216;i&#8217;
+at time &#8216;n&#8217;, given the complete observation sequence.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>B</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation probability matrix.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>llh</strong> : float</p>
+<blockquote>
+<div><p>The normalized log-likelihood.</p>
+</div></blockquote>
+<p><strong>gamma</strong> : ndarray</p>
+<blockquote>
+<div><p>The posterior distribution.</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote>
+<div><p>The number of tranisitions into the active state.</p>
+</div></blockquote>
+<p><strong>float</strong> :</p>
+<blockquote class="last">
+<div><p>The number of transitions into the inactive states.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Ksi is the joint succesive posterior distrbution.
+ksi[n,i,j]  = joint posterior probability of two succesive hidden
+states &#8216;i&#8217; and &#8216;j&#8217; at time &#8216;n&#8217;.
+In the QDHMM, Ksi is too large to fit in contiguous memory [N,K,K]. 
+Hence we estimate Ksi at every time step n, and store the relevant
+parameters required for the computation and zeta and eta 
+(the transition parameters)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qdhmm.QDHMM.qdhmmFit">
+<tt class="descname">qdhmmFit</tt><big>(</big><em>obs</em>, <em>maxiter=50</em>, <em>epsilon=1e-05</em>, <em>debug=False</em>, <em>metaheuristic='local'</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.qdhmmFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the QDHMM to the given data using the (adapted Baum-Welch) 
+EM algorithm.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : list</p>
+<blockquote>
+<div><p>The list of observations sequences where every sequence is a 
+ndarray. The sequences can be of different length, but
+the dimension of the features needs to be identical.</p>
+</div></blockquote>
+<p><strong>maxiter</strong> : int, optional</p>
+<blockquote>
+<div><p>The maximum number of iterations of the EM algorithm. Default = 50.</p>
+</div></blockquote>
+<p><strong>epsilon</strong> : float, optional</p>
+<blockquote>
+<div><p>The minimum allowed threshold in the variation of the log-likelihood 
+between succesive iterations of the EM algorithm. Once the variation
+exceeds &#8216;epsilon&#8217; the algorithm is said to have converged. 
+Default = 1e-6.</p>
+</div></blockquote>
+<p><strong>debug</strong> : bool, optional</p>
+<blockquote>
+<div><p>Display verbose On/off.</p>
+</div></blockquote>
+<p><strong>metaheuristic</strong> : {&#8216;local&#8217;, &#8216;sa&#8217;, &#8216;genetic&#8217;}, optional</p>
+<blockquote>
+<div><p>The meta-heuristic to be used to solve the objective in the M-step.
+&#8216;local&#8217; is simple local search. &#8216;genetic&#8217; is genetic algorithm and 
+&#8216;sa&#8217; is simulated annealing.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>float</strong> :</p>
+<blockquote>
+<div><p>The normalized log-likelihood.</p>
+</div></blockquote>
+<p><strong>list</strong> :</p>
+<blockquote class="last">
+<div><p>The list of log-likelihoods for each iteration of the EM algorithm.
+To check for monotonicity of the log-likelihoods.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qdhmm.QDHMM.sample">
+<tt class="descname">sample</tt><big>(</big><em>dim=1</em>, <em>N=1000</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an observation sequence of length N.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dim</strong> : int</p>
+<blockquote>
+<div><p>The dimension of the data (univariate=1, etc..).</p>
+</div></blockquote>
+<p><strong>N</strong> : int</p>
+<blockquote>
+<div><p>The length of the observation sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>An array of N observations.</p>
+</div></blockquote>
+<p><strong>zes</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The state sequence that generated the data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qdhmm.QDHMM.viterbi">
+<tt class="descname">viterbi</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#qdhmm.QDHMM.viterbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Most probable path based on Viterbi algorithm.</p>
+<blockquote>
+<div>Most probable state sequence = argmax_z P(Z|X)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like</p>
+<blockquote>
+<div><p>Observation sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>path</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The Viterbi decoded state sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Refer to Rabiner&#8217;s paper <a class="reference internal" href="#r3">[R3]</a> or the original Viterbi paper <a class="reference internal" href="#r4">[R4]</a>.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R3]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id7">2</a>)</em> Rabiner, L. A tutorial on hidden Markov models and selected 
+applications in speech recognition Proceedings of the IEEE, 
+1989, 77, 257-286.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R4]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id8">2</a>)</em> Viterbi, A. Error bounds for convolutional codes and an 
+asymptotically optimum decoding algorithm Information Theory,
+IEEE Transactions on, 1967, 13, 260-269</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-emissionplus">
+<span id="qdhmm-emission-model"></span><h2>QDHMM Emission Model<a class="headerlink" href="#module-emissionplus" title="Permalink to this headline">¶</a></h2>
+<p>Created on Thu May 30 16:49:58 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="class">
+<dt id="emissionplus.Gaussian">
+<em class="property">class </em><tt class="descclassname">emissionplus.</tt><tt class="descname">Gaussian</tt><big>(</big><em>mu</em>, <em>var</em>, <em>tau</em><big>)</big><a class="headerlink" href="#emissionplus.Gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Gaussian emission model for a QDHMM.</p>
+<p class="rubric">Notes</p>
+<p>D is the cumulative sum of the individual timeouts + 2.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="10%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>mu</td>
+<td>ndarray</td>
+<td>mean, &#8216;mu&#8217; is defined by  ndarray of shape [d, K]. Where
+d is the dimension of the features and K is the total number of
+states.</td>
+</tr>
+<tr class="row-even"><td>var</td>
+<td>ndarray</td>
+<td>variance,
+&#8216;var&#8217; is defined by  ndarray of shape [K, d, d]. Where
+d is the dimension of the features and K is the total number of
+states. Note: borrowed from standard HMM &#8216;covar&#8217;.</td>
+</tr>
+<tr class="row-odd"><td>tau</td>
+<td>ndarray</td>
+<td>The time-out parameters. Note: if the individual timeouts
+are t1,t2, t3.. then tau = [0, t1, t1+t2, t1+t2+t3, .. ]</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="emissionplus.Gaussian.Fit">
+<tt class="descname">Fit</tt><big>(</big><em>obs</em>, <em>weights</em>, <em>estimatetau</em>, <em>metaheuristic</em><big>)</big><a class="headerlink" href="#emissionplus.Gaussian.Fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a Gaussian to the state distributions after observing the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>Observation sequence.</p>
+</div></blockquote>
+<p><strong>weights</strong> : ndarray</p>
+<blockquote>
+<div><p>The weights attached to each state (posterior distribution).</p>
+</div></blockquote>
+<p><strong>estimatetau</strong> : bool</p>
+<blockquote>
+<div><p>Find optimal tau&#8217;s Yes/No</p>
+</div></blockquote>
+<p><strong>metaheuristic</strong> : {&#8216;local&#8217;, &#8216;sa&#8217;, &#8216;genetic&#8217;}, optional</p>
+<blockquote class="last">
+<div><p>The meta-heuristic to be used to solve the objective in the M-step.
+&#8216;local&#8217; is simple local search. &#8216;genetic&#8217; is genetic algorithm and 
+&#8216;sa&#8217; is simulated annealing.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Estimation of the tau parameters is done every alternate iteration
+of the QDHMM EM algorithm.
+Call viz.plotcontour only if you wish to view the search propogation.
+Recommended for search in a small space.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="emissionplus.Gaussian.Sample">
+<tt class="descname">Sample</tt><big>(</big><em>zes</em><big>)</big><a class="headerlink" href="#emissionplus.Gaussian.Sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a Gaussian observation sequence from a given state sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>stateseq</strong> : ndarray</p>
+<blockquote>
+<div><p>The state sequence which is used to generate the observation 
+sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ndarray</strong> :</p>
+<blockquote class="last">
+<div><p>Observation sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The observation sequence can only be univariate Gaussian in the 
+QDHMM Emission model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="emissionplus.Gaussian.likelihood">
+<tt class="descname">likelihood</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#emissionplus.Gaussian.likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>To compute likelihood of drawing an observation &#8216;y&#8217; from a 
+given state:  P(x | Z_t) = N(mu,var).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation sequence</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>logB</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>THe observation probability distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-hmm">
+<span id="standard-hmm"></span><h2>Standard HMM<a class="headerlink" href="#module-hmm" title="Permalink to this headline">¶</a></h2>
+<p>Created on Tue Apr 23 12:04:01 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="class">
+<dt id="hmm.StandardHMM">
+<em class="property">class </em><tt class="descclassname">hmm.</tt><tt class="descname">StandardHMM</tt><big>(</big><em>A</em>, <em>O</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>The standard HMM object.</p>
+<p class="rubric">Notes</p>
+<p>pi, the initial state distribution is the last row of the transition 
+matrix &#8216;A&#8217;. i.e.  pi = A[-1].
+Number of States: K = A.shape[1]</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="19%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>A</td>
+<td>ndarray</td>
+<td>The transition distribution.</td>
+</tr>
+<tr class="row-even"><td>O</td>
+<td>object</td>
+<td>The HMM emission model.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="hmm.StandardHMM.alpha">
+<tt class="descname">alpha</tt><big>(</big><em>logB</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute alpha (forward) distribution.</p>
+<blockquote>
+<div>alpha [i,n] =  joint probability of being in state i, 
+after observing 1..N observations.   .</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>logB</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation probability matrix in logarithmic space.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>logalpha</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The log scaled alpha distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Refer to Tobias Man&#8217;s paper <a class="reference internal" href="#r5">[R5]</a> for the motivation behind the
+scaling factors used here. Note that this scaling methods is suitable 
+when the dynamics of the system is not highly sparse. Adaptation of
+log-scaling in the QDHMM would require the use to construct a new
+sparse data structure</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R5]</td><td><em>(<a class="fn-backref" href="#id9">1</a>, <a class="fn-backref" href="#id10">2</a>)</em> Mann, T. P. Numerically Stable Hidden Markov Model 
+Implementation 2006.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.beta">
+<tt class="descname">beta</tt><big>(</big><em>logB</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute beta (backward) distribution.</p>
+<blockquote>
+<div>beta [i,n] =  conditional probability generating observations 
+Y_n+1..Y_N, given Z_n.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>logB</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation probability matrix in logarithmic space.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>logbeta</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The log scaled beta distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Refer to Tobias Man&#8217;s paper <a class="reference internal" href="#r6">[R6]</a> for the motivation behind the
+scaling factors used here. Note that this scaling methods is suitable 
+when the dynamics of the system is not highly sparse. Adaptation of
+log-scaling in the QDHMM would require the use to construct a new
+sparse data structure</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R6]</td><td><em>(<a class="fn-backref" href="#id11">1</a>, <a class="fn-backref" href="#id12">2</a>)</em> Mann, T. P. Numerically Stable Hidden Markov Model 
+Implementation 2006.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.estimatepostduration">
+<tt class="descname">estimatepostduration</tt><big>(</big><em>logalpha</em>, <em>logbeta</em>, <em>logB</em>, <em>rankn</em>, <em>g</em>, <em>llh</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.estimatepostduration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate state durations based on the posterior distribution.</p>
+<p>Since the durations are truncated by the timeout parameter, we use
+a distribution free method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>logalpha</strong> : ndarray</p>
+<blockquote>
+<div><p>Log scaled alpha distribution.</p>
+</div></blockquote>
+<p><strong>logbeta</strong> : ndarray</p>
+<blockquote>
+<div><p>Log scaled beta values.</p>
+</div></blockquote>
+<p><strong>logB</strong> : ndarray</p>
+<blockquote>
+<div><p>Observation probability distribution in log-space.</p>
+</div></blockquote>
+<p><strong>rankn</strong> : ndarray</p>
+<blockquote>
+<div><p>the top ranked &#8216;n&#8217; for eah state &#8216;k&#8217;, used to estimate state durations.</p>
+</div></blockquote>
+<p><strong>g</strong> : ndarray</p>
+<blockquote>
+<div><p>log scaled posterior distribution (&#8216;logGamma&#8217;)</p>
+</div></blockquote>
+<p><strong>llh</strong> : float</p>
+<blockquote>
+<div><p>the normalized log-likelihood.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>int</strong> :</p>
+<blockquote>
+<div><p>The estimated durations in each state.</p>
+</div></blockquote>
+<p><strong>ndarray</strong> :</p>
+<blockquote class="last">
+<div><p>The expected value of the state duration at the &#8216;rankn&#8217;.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The QDHMM EM algorithm requires good initial estimates of the model 
+parameters in order to converge to a good solution. We propose a
+distribution free method to find the expected value of state durations
+in a standard HMM model, which is then used to initialize the QDHMM 
+&#8216;tau&#8217; parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.estimateviterbiduration">
+<tt class="descname">estimateviterbiduration</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.estimateviterbiduration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the state durations based on the Viterbi decoded
+state sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>path</strong> : ndarray</p>
+<blockquote>
+<div><p>The Viterbi decoded state sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>int</strong> :</p>
+<blockquote class="last">
+<div><p>Estimated state durations based on the Viterbi path.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.gammaKsi">
+<tt class="descname">gammaKsi</tt><big>(</big><em>logB</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.gammaKsi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute gamma (posterior distribution) and Ksi (joint succesive 
+posterior distrbution) values.</p>
+<p>gamma [i,n] =  conditional probability of the event state &#8216;i&#8217;
+at time &#8216;n&#8217;, given the complete observation sequence.</p>
+<p>ksi[n,i,j]  = joint posterior probability of two succesive hidden
+states &#8216;i&#8217; and &#8216;j&#8217; at time &#8216;n&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>logB</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation probability matrix in logarithmic space.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>llh</strong> : float</p>
+<blockquote>
+<div><p>The normalized log-likelihood.</p>
+</div></blockquote>
+<p><strong>logGamma</strong> : ndarray</p>
+<blockquote>
+<div><p>The log posterior distribution.</p>
+</div></blockquote>
+<p><strong>logKsi</strong> : ndarray</p>
+<blockquote>
+<div><p>The log joint posterior probability distribution.</p>
+</div></blockquote>
+<p><strong>logAlpha</strong> : ndarray</p>
+<blockquote>
+<div><p>The log scaled alpha distribution.</p>
+</div></blockquote>
+<p><strong>logBeta</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The log scaled beta distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.hmmFit">
+<tt class="descname">hmmFit</tt><big>(</big><em>obs</em>, <em>maxiter=50</em>, <em>epsilon=0.0001</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.hmmFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the standard HMM to the given data using the (adapted Baum-Welch) 
+EM algorithm.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : list</p>
+<blockquote>
+<div><p>The list of observations sequences where every sequence is a 
+ndarray. The sequences can be of different length, but
+the dimension of the features needs to be identical.</p>
+</div></blockquote>
+<p><strong>maxiter</strong> : int, optional</p>
+<blockquote>
+<div><p>The maximum number of iterations of the EM algorithm. Default = 50.</p>
+</div></blockquote>
+<p><strong>epsilon</strong> : float, optional</p>
+<blockquote>
+<div><p>The minimum allowed threshold in the variation of the log-likelihood 
+between succesive iterations of the EM algorithm. Once the variation
+exceeds &#8216;epsilon&#8217; the algorithm is said to have converged. 
+Default = 1e-6.</p>
+</div></blockquote>
+<p><strong>debug</strong> : bool, optional</p>
+<blockquote>
+<div><p>Display verbose On/off.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>float</strong> :</p>
+<blockquote>
+<div><p>The normalized log-likelihood.</p>
+</div></blockquote>
+<p><strong>list</strong> :</p>
+<blockquote>
+<div><p>The list of log-likelihoods for each iteration of the EM algorithm.
+To check for monotonicity of the log-likelihoods.</p>
+</div></blockquote>
+<p><strong>int</strong> :</p>
+<blockquote>
+<div><p>The duration estimates of each HMM state from the posterior 
+distribution.</p>
+</div></blockquote>
+<p><strong>ndarray</strong> :</p>
+<blockquote>
+<div><p>The top ranked &#8216;n&#8217;  which are used to estimate the state
+durations.</p>
+</div></blockquote>
+<p><strong>ndarray</strong> :</p>
+<blockquote class="last">
+<div><p>The expected value of the state durations obtained at
+the top ranked &#8216;n&#8217;.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.rankn">
+<tt class="descname">rankn</tt><big>(</big><em>ksi</em>, <em>rank=10</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.rankn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the top ranked &#8216;n&#8217;s used to estimate state durations.</p>
+<p>Find the top ranked &#8216;n&#8217; s for which the posterior probability of
+transitioning into the state &#8216;k&#8217; given we were not at state &#8216;k&#8217; 
+at time &#8216;n-1&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ksi</strong> : ndarray</p>
+<blockquote>
+<div><p>The joint sucesive posterior distribution in log-space</p>
+</div></blockquote>
+<p><strong>rank</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of the ranked &#8216;n&#8217; which we chose to use to 
+estimate state durations.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rankn</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>the top ranked &#8216;n&#8217;s for each state. Used to estimate state durations</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.sample">
+<tt class="descname">sample</tt><big>(</big><em>dim=1</em>, <em>N=1000</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an observation sequence of length N.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dim</strong> : int</p>
+<blockquote>
+<div><p>The dimension of the data (univariate=1, etc..).</p>
+</div></blockquote>
+<p><strong>N</strong> : int</p>
+<blockquote>
+<div><p>The length of the observation sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>An array of N observations.</p>
+</div></blockquote>
+<p><strong>zes</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The state sequence that generated the data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmm.StandardHMM.viterbi">
+<tt class="descname">viterbi</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#hmm.StandardHMM.viterbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Most probable path based on Viterbi algorithm.</p>
+<blockquote>
+<div>Most probable state sequence = argmax_z P(Z|X)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like</p>
+<blockquote>
+<div><p>Observation sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>path</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The Viterbi decoded state sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Refer to Rabiner&#8217;s paper <a class="reference internal" href="#r7">[R7]</a> or the original Viterbi paper <a class="reference internal" href="#r8">[R8]</a>.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R7]</td><td><em>(<a class="fn-backref" href="#id13">1</a>, <a class="fn-backref" href="#id15">2</a>)</em> Rabiner, L. A tutorial on hidden Markov models and selected 
+applications in speech recognition Proceedings of the IEEE, 
+1989, 77, 257-286.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R8]</td><td><em>(<a class="fn-backref" href="#id14">1</a>, <a class="fn-backref" href="#id16">2</a>)</em> Viterbi, A. Error bounds for convolutional codes and an 
+asymptotically optimum decoding algorithm Information Theory,
+IEEE Transactions on, 1967, 13, 260-269</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-emmissions">
+<span id="standard-hmm-emission-model"></span><h2>Standard HMM Emission Model<a class="headerlink" href="#module-emmissions" title="Permalink to this headline">¶</a></h2>
+<p>Created on Tue Apr 23 12:02:37 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="class">
+<dt id="emmissions.Discrete">
+<em class="property">class </em><tt class="descclassname">emmissions.</tt><tt class="descname">Discrete</tt><big>(</big><em>pvector</em>, <em>cvector</em><big>)</big><a class="headerlink" href="#emmissions.Discrete" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Discrete emission model for a standard HMM.</p>
+<p class="rubric">Notes</p>
+<p>Also known as categorical / multinomial / multinoulli in the literature.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>pvector</td>
+<td>ndarray</td>
+<td>The discrete observation distribution.</td>
+</tr>
+<tr class="row-even"><td>cvector</td>
+<td>ndarray</td>
+<td>The allowed classes in a discrete distribution.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="emmissions.Gaussian">
+<em class="property">class </em><tt class="descclassname">emmissions.</tt><tt class="descname">Gaussian</tt><big>(</big><em>mu</em>, <em>covar</em><big>)</big><a class="headerlink" href="#emmissions.Gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Gaussian emission model for a standard HMM.</p>
+<p class="rubric">Notes</p>
+<p>In the case of univariate data, the covariance decomposes into
+the variance in the computations.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="9%" />
+<col width="84%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>mu</td>
+<td>ndarray</td>
+<td>mean, &#8216;mu&#8217; is defined by  ndarray of shape [d, K]. Where
+d is the dimension of the features and K is the total number of
+states.</td>
+</tr>
+<tr class="row-even"><td>covar</td>
+<td>ndarray</td>
+<td>co-variance (variance),
+&#8216;covar&#8217; is defined by  ndarray of shape [K, d, d]. Where
+d is the dimension of the features and K is the total number of
+states.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="emmissions.Gaussian.fit">
+<tt class="descname">fit</tt><big>(</big><em>obs</em>, <em>logweights</em><big>)</big><a class="headerlink" href="#emmissions.Gaussian.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a Gaussian to the state distributions after observing the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>Observation sequence.</p>
+</div></blockquote>
+<p><strong>logweights</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The weights attached to each state (posterior distribution). 
+In log-space.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emmissions.Gaussian.likelihood">
+<tt class="descname">likelihood</tt><big>(</big><em>y</em>, <em>state</em><big>)</big><a class="headerlink" href="#emmissions.Gaussian.likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>To compute likelihood of drawing an observation &#8216;y&#8217; from a 
+given state:  P(x | Z_t) = N(mu,covar).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation sequence</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>logB</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>THe observation probability distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emmissions.Gaussian.loglikelihood">
+<tt class="descname">loglikelihood</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#emmissions.Gaussian.loglikelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>To compute loglikelihood of drawing an observation &#8216;y&#8217; from a 
+given state:  log(P(x | Z_t)) = N(mu,covar).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation sequence</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>logB</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The observation probability distribution in log-space.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="emmissions.Gaussian.sample">
+<tt class="descname">sample</tt><big>(</big><em>stateseq</em><big>)</big><a class="headerlink" href="#emmissions.Gaussian.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a Gaussian observation sequence from a given state sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>stateseq</strong> : ndarray</p>
+<blockquote>
+<div><p>The state sequence which is used to generate the observation 
+sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>ndarray</strong> :</p>
+<blockquote class="last">
+<div><p>Observation sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The observation sequence can be univariate or multivariate Gaussian 
+depending on the &#8216;dim&#8217; parameter of the emission model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-DiscreteOptim">
+<span id="discrete-optimzation-module"></span><h2>Discrete Optimzation Module<a class="headerlink" href="#module-DiscreteOptim" title="Permalink to this headline">¶</a></h2>
+<p>Created on Mon Aug 19 17:16:56 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="function">
+<dt id="DiscreteOptim.checkpopulation">
+<tt class="descclassname">DiscreteOptim.</tt><tt class="descname">checkpopulation</tt><big>(</big><em>population</em>, <em>D</em><big>)</big><a class="headerlink" href="#DiscreteOptim.checkpopulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove illegal configuration by applying hard contraints on the 
+time-outs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>population</strong> : list</p>
+<blockquote>
+<div><p>list of configurations</p>
+</div></blockquote>
+<p><strong>D</strong> : int</p>
+<blockquote>
+<div><p>np.cumsum(tau)+2</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>list</strong> :</p>
+<blockquote class="last">
+<div><p>list of legal configurations which do not violate any of the constraints.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Constraints
+e.g. tau&#8217;s must be monotonically increasing. 
+tau = [0, x, y], then y!&lt;x and x,y &lt; D-1.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="DiscreteOptim.generateneighbours">
+<tt class="descclassname">DiscreteOptim.</tt><tt class="descname">generateneighbours</tt><big>(</big><em>configuration</em>, <em>obs</em>, <em>steps</em>, <em>legal</em>, <em>weights</em>, <em>emmobj</em><big>)</big><a class="headerlink" href="#DiscreteOptim.generateneighbours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate neighbours for the current configuration.</p>
+<p>If legal, generate neighbours such that f(n) &lt; f(c)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>configuration</strong> : ndarray</p>
+<blockquote>
+<div><p>The tau parameter.</p>
+</div></blockquote>
+<p><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>Sequence of observations.</p>
+</div></blockquote>
+<p><strong>steps</strong> : list</p>
+<blockquote>
+<div><p>step to be taken in each dimension respectively.</p>
+</div></blockquote>
+<p><strong>legal</strong> : bool</p>
+<blockquote>
+<div><p>Generate legal neighbours. Yes/No</p>
+</div></blockquote>
+<p><strong>weights</strong> : ndarray</p>
+<blockquote>
+<div><p>posterior weights assigned to each state</p>
+</div></blockquote>
+<p><strong>emmobj</strong> : QDHMM Emission model object</p>
+<blockquote>
+<div><p>QDHMM Emission model</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>list</strong> :</p>
+<blockquote class="last">
+<div><p>list of neighbours</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This was during the initial exploration of optimization strategies.
+Will be deprecated.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="DiscreteOptim.generatepopulation">
+<tt class="descclassname">DiscreteOptim.</tt><tt class="descname">generatepopulation</tt><big>(</big><em>taus</em>, <em>weights</em>, <em>obs</em>, <em>number</em>, <em>step</em>, <em>D</em><big>)</big><a class="headerlink" href="#DiscreteOptim.generatepopulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a population of configurations for the genetic algorithm</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="DiscreteOptim.localsearch">
+<tt class="descclassname">DiscreteOptim.</tt><tt class="descname">localsearch</tt><big>(</big><em>emmobj</em>, <em>obs</em>, <em>step</em>, <em>maxiter</em>, <em>weights</em><big>)</big><a class="headerlink" href="#DiscreteOptim.localsearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drive the local search.</p>
+<p>Drive the local search, start with infeasible solution,
+then move around in the local neighbourhood towards a
+feasible solution (local optima)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>emmobj</strong> : QDHMM Emission model object</p>
+<blockquote>
+<div><p>QDHMM Emission model</p>
+</div></blockquote>
+<p><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>Sequence of observations</p>
+</div></blockquote>
+<p><strong>step</strong> : int</p>
+<blockquote>
+<div><p>The step to take in each dimension. Default = 1.</p>
+</div></blockquote>
+<p><strong>maxiter</strong> : int</p>
+<blockquote>
+<div><p>The number of iterations to continue the search.</p>
+</div></blockquote>
+<p><strong>weights</strong> : ndarray</p>
+<blockquote>
+<div><p>The posterior weights.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>configuration</strong> : ndarray</p>
+<blockquote>
+<div><p>A (locally) optimal solution</p>
+</div></blockquote>
+<p><strong>history</strong> : list</p>
+<blockquote class="last">
+<div><p>A list of the configurations searched in the space. Used for 
+visualization of the search</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Note that local search will always return a solution even if interrupted.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="DiscreteOptim.objective">
+<tt class="descclassname">DiscreteOptim.</tt><tt class="descname">objective</tt><big>(</big><em>taus</em>, <em>K</em>, <em>obs</em>, <em>weights</em><big>)</big><a class="headerlink" href="#DiscreteOptim.objective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Objective function</p>
+<p>The objective function is essentially the weighted average of
+the variance along the splits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>taus</strong> : list</p>
+<blockquote>
+<div><p>list of &#8216;i&#8217; different tau configurations. Where each tau _i is of 
+the form <a href="#id17"><span class="problematic" id="id18">tau_</span></a> i = [0, t1 , t1+t2, ...]</p>
+</div></blockquote>
+<p><strong>K</strong> : int</p>
+<blockquote>
+<div><p>The number of Simegy states. Equivalent to size(tau).</p>
+</div></blockquote>
+<p><strong>obs</strong> : ndarray</p>
+<blockquote>
+<div><p>The observation sequence.</p>
+</div></blockquote>
+<p><strong>weights</strong> : ndarray</p>
+<blockquote>
+<div><p>The posterior weights.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>energy</strong> : list</p>
+<blockquote class="last">
+<div><p>The value of the objective function for each tau configuration.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hmmviz">
+<span id="visualization"></span><h2>Visualization<a class="headerlink" href="#module-hmmviz" title="Permalink to this headline">¶</a></h2>
+<p>Created on Tue Apr 23 12:04:01 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="function">
+<dt id="hmmviz.plotcontour">
+<tt class="descclassname">hmmviz.</tt><tt class="descname">plotcontour</tt><big>(</big><em>K</em>, <em>taus</em>, <em>weights</em>, <em>obs</em>, <em>history</em>, <em>title</em><big>)</big><a class="headerlink" href="#hmmviz.plotcontour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize the combinatorial search.</p>
+<p>Visualize the propogation of the search using contour lines.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hmmviz.view_EMconvergence">
+<tt class="descclassname">hmmviz.</tt><tt class="descname">view_EMconvergence</tt><big>(</big><em>ay</em>, <em>ll</em><big>)</big><a class="headerlink" href="#hmmviz.view_EMconvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize the variation of the llh during each iteration of 
+the EM algorithm. Note: THE LLH MUST MONOTONICALLY INCREASE.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hmmviz.view_postduration">
+<tt class="descclassname">hmmviz.</tt><tt class="descname">view_postduration</tt><big>(</big><em>ax</em>, <em>obs</em>, <em>path</em>, <em>mean</em>, <em>reslist</em>, <em>ranknlist</em>, <em>seq</em><big>)</big><a class="headerlink" href="#hmmviz.view_postduration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize the estimated state durations based on the posterior
+distribution.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hmmviz.view_statedurations">
+<tt class="descclassname">hmmviz.</tt><tt class="descname">view_statedurations</tt><big>(</big><em>fc</em>, <em>path</em>, <em>K</em><big>)</big><a class="headerlink" href="#hmmviz.view_statedurations" title="Permalink to this definition">¶</a></dt>
+<dd><p>View histograms of state duration.</p>
+<p>The frequencies are obtained from the Viterbi sequence.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hmmviz.view_viterbi">
+<tt class="descclassname">hmmviz.</tt><tt class="descname">view_viterbi</tt><big>(</big><em>ax</em>, <em>obs</em>, <em>paths</em>, <em>mean</em>, <em>seq</em><big>)</big><a class="headerlink" href="#hmmviz.view_viterbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize the Viterbi sequence.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils">
+<span id="math-utils"></span><h2>Math Utils<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h2>
+<p>Created on Tue Jun 11 16:26:49 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="function">
+<dt id="utils.logsumexp">
+<tt class="descclassname">utils.</tt><tt class="descname">logsumexp</tt><big>(</big><em>a</em>, <em>axis=None</em><big>)</big><a class="headerlink" href="#utils.logsumexp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the log of the sum of exponentials of input elements,
+Modified scipy.misc logsumexp to accept [-inf,-inf].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>a</strong> : array_like</p>
+<blockquote>
+<div><p>Input array.</p>
+</div></blockquote>
+<p><strong>axis</strong> : int, optional</p>
+<blockquote>
+<div><p>Axis over which the sum is taken. By default <cite>axis</cite> is None,
+and all elements are summed.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>res</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>The result, <tt class="docutils literal"><span class="pre">np.log(np.sum(np.exp(a)))</span></tt> calculated in a numerically
+more stable way.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">numpy.logaddexp</span></tt>, <tt class="xref py py-obj docutils literal"><span class="pre">numpy.logaddexp2</span></tt></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Numpy has a logaddexp function which is very similar to <cite>logsumexp</cite>, but
+only handles two arguments. <cite>logaddexp.reduce</cite> is similar to this
+function, but may be less stable.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">logsumexp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)))</span>
+<span class="go">9.4586297444267107</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logsumexp</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">9.4586297444267107</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Code</a><ul>
+<li><a class="reference internal" href="#module-qdhmm">QDHMM</a></li>
+<li><a class="reference internal" href="#module-emissionplus">QDHMM Emission Model</a></li>
+<li><a class="reference internal" href="#module-hmm">Standard HMM</a></li>
+<li><a class="reference internal" href="#module-emmissions">Standard HMM Emission Model</a></li>
+<li><a class="reference internal" href="#module-DiscreteOptim">Discrete Optimzation Module</a></li>
+<li><a class="reference internal" href="#module-hmmviz">Visualization</a></li>
+<li><a class="reference internal" href="#module-utils">Math Utils</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="howto.html"
+                        title="previous chapter">How to..?</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/code.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="howto.html" title="How to..?"
+             >previous</a> |</li>
+        <li><a href="index.html">SimegyLoadModelling 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, N. Bhushan.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

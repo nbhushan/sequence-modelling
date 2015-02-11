@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Data &mdash; SimegyLoadModelling 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SimegyLoadModelling 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="How to..?" href="howto.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="howto.html" title="How to..?"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SimegyLoadModelling 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="data">
+<h1>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="real-power">
+<h2>Real Power<a class="headerlink" href="#real-power" title="Permalink to this headline">¶</a></h2>
+<p>In electrical systems, power is defined as the rate of flow of energy at a given point in the circuit. In a circuit with a purely resistive load the current is in phase with the voltage and hence the power equations become similar to that of an equivalent DC circuit with zero energy being returned back to the source.
+In circuits with reactive loads as well as resistive loads, the power will alternate between positive and negative instantaneous values of energy. But in comparison to a purely reactive load where the net energy dissipation is zero, the energy absorbed will be higher than the energy returned to the source. To reflect the true energy consumption of a device, it is hence necessary to capture the true energy being absorbed. This energy is denoted as real power and is measured in Watts. Most domestic power meters record real power (KWh) and the consumers are charged for the real power consumed. We chose to model the energy consumption of the device based on it&#8217;s real power consumption.</p>
+</div>
+<div class="section" id="data-collection-phidgets">
+<h2>Data Collection / Phidgets<a class="headerlink" href="#data-collection-phidgets" title="Permalink to this headline">¶</a></h2>
+<p>Phidgets are a viable alternative to traditional sensors and transducers. They are low cost and can be easily controlled by USB from a host computer.
+The i-snail-VC 10 sensor was used to detect the AC current consumed by the printer.
+<a class="reference external" href="http://www.phidgets.com/products.php?product_id=3500_0">http://www.phidgets.com/products.php?product_id=3500_0</a>
+The sensor is connected to the Phidget Interface kit (PIK). The PIK is then connected to the computer using USB. An application was developed to control the sensor and store the power data recorded in a database.
+<a class="reference external" href="http://www.phidgets.com/products.php?product_id=1018">http://www.phidgets.com/products.php?product_id=1018</a>
+There are two ways in which we can control the sensor to log data. Depending on the application requirements, we can chose to poll the sensor every predefined time interval and retrieve the value, or we can follow a event driven approach. This is possible by changing the sensitivity threshold of the analog sensor. Sensitivity can be defined here as a minimum difference in value needed to register a change. Whenever the sensor generates a new value, it will be compared to the sensitivity. If the difference between the previous data point and the new data point is less than the sensitivity value, no event will be generated.
+Alternatively, one can change the data rate setting for an analog sensor. This corresponds to the fastest rate at which  events will be fired. The data rate is superseded by sensitivity, which should be set to 0 if a constant data rate is required. Data Rate is in milliseconds and corresponds to the amount of time between events. A sampling rate of 1 s chosen. In the application developed using the Phidget API&#8217;s, we set the sensitivity to be zero and since the sensor does not support an absolute sampling rate of 1s, we sample data at a constant rate of 992ms (any multiple of 16ms). Newer versions of phidgets support sampling rates in multiples of 8ms, thus it would be possible to sample a reading every second.
+To enable remote monitoring of the power load, the sensor was connected to an interface kit, which was then connected to an EEBOX using USB. The host application was run on the EEBOX and stored the sensor reading in a database.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Data</a><ul>
+<li><a class="reference internal" href="#real-power">Real Power</a></li>
+<li><a class="reference internal" href="#data-collection-phidgets">Data Collection / Phidgets</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="howto.html"
+                        title="next chapter">How to..?</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/data.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="howto.html" title="How to..?"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">SimegyLoadModelling 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, N. Bhushan.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
