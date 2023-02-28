@@ -12,9 +12,15 @@ scipy = "^1.10.1"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.2.1"
 matplotlib = "^3.7.0"
 2to3 = "^1.0"
+pep8 = "^1.7.1"
+Sphinx = "^4.2.0"
+sphinx-rtd-theme = "^1.0.0"
+mypy = "^0.910"
+seaborn = "^0.11.2"
+pep8-naming = "^0.12.1"
+pytest = "^6.2.5"
 
 [build-system]
 requires = ["poetry-core"]
