@@ -6,7 +6,7 @@ Created on Thu May 30 15:38:44 2013
 """
 
 import numpy as np
-from utils import logsumexp
+from sequence_modelling.utils import logsumexp
 from scipy import sparse
 import matplotlib.pyplot as plt
 import logging,sys
