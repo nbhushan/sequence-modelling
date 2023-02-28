@@ -206,8 +206,8 @@ class QDHMM:
         D = self.D
         N = B.shape[1]    
         assert B.shape == (D,N)       
-        Alpha = np.zeros((D, 1), dtype=np.float)
-        Alphahat = np.zeros((D, N), dtype=np.float)
+        Alpha = np.zeros((D, 1), dtype=np.float64)
+        Alphahat = np.zeros((D, N), dtype=np.float64)
         c = np.ones((N))
         w = np.zeros((D))
         p = self.p
