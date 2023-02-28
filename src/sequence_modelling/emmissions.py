@@ -106,7 +106,7 @@ class Gaussian:
             
         """
         logB = np.zeros((self.K, obs.shape[1]))
-        for k in xrange(self.K):
+        for k in range(self.K):
             logB[k,:]=norm.logpdf(obs, loc=self.mu[:,k], \
                                     scale = np.sqrt(self.covar[k,:,:]))
         return logB                                    

@@ -76,7 +76,7 @@ def view_EMconvergence(ay,ll):
     '''Visualize the variation of the llh during each iteration of 
         the EM algorithm. Note: THE LLH MUST MONOTONICALLY INCREASE.
     '''
-    x = xrange(len(ll))
+    x = list(range(len(ll)))
     ay.plot(x,ll)
     ay.set_title('EM convergence')
     ay.set_ylabel('Log-likelihood')
@@ -112,7 +112,7 @@ def view_statedurations(fc, path, K):
     '''
     from itertools import groupby
     lengths = [None]*K
-    for k in xrange(K):
+    for k in range(K):
         a = path==k
         lengths[k]=[sum(g) for b, g in groupby(a) if b]
     aw = fc.add_subplot(2,2,1)

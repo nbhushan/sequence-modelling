@@ -110,29 +110,29 @@ class Gaussian:
             if metaheuristic=='genetic':
                 t=time.time()
                 genetic, history=optim.geneticalgorithm(self, obs, 20, weights)
-                print 'tau: ', genetic
-                print 'genetic search time:', time.time()-t
+                print(('tau: ', genetic))
+                print(('genetic search time:', time.time()-t))
                 self.tau = genetic
             elif metaheuristic=='local':
                 t=time.time()
                 local, history = optim.localsearch(self, obs, 1, 20, weights) 
-                print 'tau: ', local
-                print 'local search time:', time.time()-t
+                print(('tau: ', local))
+                print(('local search time:', time.time()-t))
                 self.tau = local
             elif metaheuristic=='sa':
                 t=time.time()
                 aneal, history= optim.simulated_annealing(self, weights, obs, 20)                
-                print 'aneal search time:', time.time()-t
-                print 'tau: ',aneal
-                print 'Scipy anneal'
+                print(('aneal search time:', time.time()-t))
+                print(('tau: ',aneal))
+                print('Scipy anneal')
                 pdb.set_trace()
-                print anneal(optim.new_objective, self.tau, (self.K, obs, weights), schedule='cauchy', T0=10000, Tf=0.0001)                
+                print((anneal(optim.new_objective, self.tau, (self.K, obs, weights), schedule='cauchy', T0=10000, Tf=0.0001)))                
                 self.tau = aneal
             #viz.plotcontour(self.K, self.tau, weights, obs, history, str(metaheuristic+str(iteration)))
         normalizer=np.zeros((self.K, weights.shape[1]))
-        x = np.array(xrange(weights.shape[0]))
+        x = np.array(list(range(weights.shape[0])))
         state = np.digitize(x, self.tau, right=True)
-        for k in xrange(self.K):
+        for k in range(self.K):
             normalizer[k,:] = (np.sum(weights[state==k],0) / 
             np.sum(np.sum(weights[state==k],0)[np.newaxis,:], axis = 1)[:, np.newaxis])  
             self.mu[:,k] = np.dot( normalizer[k,:] , obs.T)               
@@ -157,9 +157,9 @@ class Gaussian:
         #pdb.set_trace()
         B = np.zeros((self.D, obs.shape[1]))
         state = np.array((self.D))
-        d = xrange(self.D)     
+        d = list(range(self.D))     
         state = np.digitize(d,self.tau,right=True)    
-        for k in xrange(self.K):
+        for k in range(self.K):
             B[state==k,:]=norm.pdf(obs, loc=self.mu[:,k], \
                                     scale = np.sqrt(self.var[k,:,:]))
         return B
