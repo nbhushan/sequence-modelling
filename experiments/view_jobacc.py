@@ -10,7 +10,7 @@ import csv, logging, numpy
 import pdb
 logger = logging.getLogger()
 
-def tstamp(t,refdate=datetime(2013,07,11,0,0,0),daysecs=24*3600):
+def tstamp(t,refdate=datetime(2013,0o7,11,0,0,0),daysecs=24*3600):
   t = t-refdate  
   return t.days*daysecs+t.seconds
 
@@ -18,9 +18,9 @@ def data():
     logger.info('Loading pwr data')
     with open('dauphine_1107to1108_powerdata.csv') as u:
         ur = csv.reader(u)
-        hdr = ur.next()
+        hdr = next(ur)
         power = [float(x[0]) for x in ur]
-        base= datetime(2013,07,11,00,00,00)
+        base= datetime(2013,0o7,11,00,00,00)
         dateList = [ base + timedelta(seconds=x) for x in range(0,len(power)) ]
         fdatelist = [tstamp(x) for x in dateList]
         Lpwr = tuple((fdatelist,power))
@@ -28,7 +28,7 @@ def data():
     logger.info('Loading job data')
     with open('dauphine_1107to1108_jobbacc.csv') as u:
         ur = csv.reader(u)
-        hdr = ur.next()
+        hdr = next(ur)
         Ljob = tuple((tstamp(datetime.strptime(x[0],'%Y-%m-%d %H:%M:%S')), tstamp(datetime.strptime(x[1],'%Y-%m-%d %H:%M:%S')), int(x[2])) for x in ur)  
     return Lpwr, Ljob
 
@@ -61,5 +61,5 @@ if __name__=='__main__':
     f = figure()
     display(data(),f.add_subplot(111))
     f.tight_layout()
-    print 'Close the plot window to end the program.'
+    print('Close the plot window to end the program.')
     show()

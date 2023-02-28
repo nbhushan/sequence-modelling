@@ -36,19 +36,19 @@ def test():
     #np.savetxt('discrete_discasino.csv', np.transpose(obs[0]), fmt='%.2f' ,delimiter = ',')
     
              
-    print "\nHMM MODEL:\n "    
-    print model
-    print
-    print "\nOriginal Emmission model: \n" , emmissionModel
-    print '*'*80   
+    print("\nHMM MODEL:\n ")    
+    print(model)
+    print()
+    print("\nOriginal Emmission model: \n" , emmissionModel)
+    print('*'*80)   
     
     # Fit the model to the data and print results
     newloglikehood = model.hmmFit(obs , maxiter = 12 , epsilon = 0.00001)    
     (path, V, psi)  = model.viterbi(obs[0])    
     
-    print "Log likelihood: \n" , newloglikehood  
-    print "Re-estimated HMM Model: \n" , model
-    print "Re-estimated Emmission model: \n" , model.O
+    print("Log likelihood: \n" , newloglikehood)  
+    print("Re-estimated HMM Model: \n" , model)
+    print("Re-estimated Emmission model: \n" , model.O)
    
     from matplotlib.pyplot import figure, show 
     
@@ -61,7 +61,7 @@ def test():
     model.visTraining(ll,fb.add_subplot(1,1,1))    
     fb.tight_layout()
     '''
-    print 'Close the plot window to end the program.'        
+    print('Close the plot window to end the program.')        
     show()
     
  

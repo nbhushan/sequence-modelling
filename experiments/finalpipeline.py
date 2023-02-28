@@ -126,16 +126,16 @@ def fitQDHMM(obs, initmodel, tau):
     likelihood,ll = qdhmmmodel.qdhmmFit(obs, 10, 1e-6, True, 'local')
     end_time=time.time()
     logging.info('Time taken to estimate QDHMM parameters (s) : %.5f s' % (end_time-start_time) )  
-    print 'Time taken to estimate QDHMM parameters (s) :', (end_time-start_time)
+    print('Time taken to estimate QDHMM parameters (s) :', (end_time-start_time))
     path=[None]*len(obs)
-    for seq in xrange(len(obs)):
+    for seq in range(len(obs)):
         path[seq] = initmodel.viterbi(obs[seq]) 
     logging.info('LLH: : %.5f s' % likelihood ) 
-    print 'LLH: ', likelihood
+    print('LLH: ', likelihood)
     logging.info('Re-estimated Model : %.s ' % qdhmmmodel )   
-    print 'Re-estimated Model\n',qdhmmmodel
+    print('Re-estimated Model\n',qdhmmmodel)
     logging.info('Re-estimated Emission Model: %.s ' % qdhmmmodel.O )  
-    print 'Re-estimated Emission Model\n',qdhmmmodel.O
+    print('Re-estimated Emission Model\n',qdhmmmodel.O)
     
     #Visualize
     uniqueid = 'finalpipelinetest'    
@@ -145,7 +145,7 @@ def fitQDHMM(obs, initmodel, tau):
     for seq in range(len(obs)):    
         fb = figure()
         aa = fb.add_subplot(111)
-        x=range(obs[seq].shape[1])
+        x=list(range(obs[seq].shape[1]))
         aa.plot(x,obs[seq].flatten())
         aa.set_xlabel('time (s)')
         aa.set_ylabel('Power (W)')
@@ -159,7 +159,7 @@ def fitQDHMM(obs, initmodel, tau):
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
     pp.close()    
-    print 'Close the plot window to end the program.'    
+    print('Close the plot window to end the program.')    
     show()  
     
 if __name__=='__main__':
@@ -178,13 +178,13 @@ if __name__=='__main__':
     obs[0]=np.mean(obs[0].flatten().reshape(-1, 2), axis=1)[np.newaxis,:]
     '''
     
-    print 'Length of observation sequence:', obs[0].shape[1]    
+    print('Length of observation sequence:', obs[0].shape[1])    
     
    # Estimate initial parameters using HMM
     initmodel, pstdur = fitHMM(obs)
-    print initmodel
+    print(initmodel)
     taus = np.array(pstdur).flatten()
-    print 'duration: ', np.array(pstdur).flatten()
+    print('duration: ', np.array(pstdur).flatten())
     #pstdur = np.array([0,29,93])
     #Fit QDHMM to data
     fitQDHMM(obs, initmodel, np.array([0, taus[1], taus[1]+taus[2]]))

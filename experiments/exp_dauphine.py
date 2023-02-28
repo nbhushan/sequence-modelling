@@ -54,31 +54,31 @@ def test():
     #Re-sample every 10 s
     obs[0]=np.mean(obs[0].flatten().reshape(-1, 2), axis=1)[np.newaxis,:]
     #obs[1]=np.mean(obs[1].flatten().reshape(-1, 2), axis=1)[np.newaxis,:]
-    print 'Length of observation sequence 1 :', obs[0].shape[1]
+    print('Length of observation sequence 1 :', obs[0].shape[1])
     #print 'Length of observation sequence 2 :', obs[1].shape[1]
     
 
     
-    print 'Initial Model \n',dauphinemodel
-    print 'Initial Emission Model\n', dauphinemodel.O
+    print('Initial Model \n',dauphinemodel)
+    print('Initial Emission Model\n', dauphinemodel.O)
     
     likelihood,ll, durationlist, ranknlist, reslist= dauphinemodel.hmmFit(obs,20,1e-6, debug=True)   
     path=[None]*numseq
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         path[seq] = dauphinemodel.viterbi(obs[seq]) 
     
-    print 'LLH: ', likelihood
-    print 'Re-estimated Model\n',dauphinemodel
-    print 'Re-estimated Emission Model\n',dauphinemodel.O
+    print('LLH: ', likelihood)
+    print('Re-estimated Model\n',dauphinemodel)
+    print('Re-estimated Emission Model\n',dauphinemodel.O)
     
     #Viterbi state duration
     lengths=[None]*numseq
     for idx,stateseq in enumerate(path):
         lengths[idx] = dauphinemodel.estimateviterbiduration(stateseq)
     for length in lengths:        
-        print 'Viterbi state duration:', np.max(length[0]) ,np.max(length[1]), np.max(length[2]), np.max(length[3])     
+        print('Viterbi state duration:', np.max(length[0]) ,np.max(length[1]), np.max(length[2]), np.max(length[3]))     
     for dur in durationlist:
-        print 'Posterior distribution duration estimation:', dur
+        print('Posterior distribution duration estimation:', dur)
     
     #Visualize
     #filepath = 'C:\\Local\\FINALEXPERIMENTS\\'
@@ -99,7 +99,7 @@ def test():
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
     pp.close()    
-    print 'Close the plot window to end the program.'    
+    print('Close the plot window to end the program.')    
     show() 
        
  

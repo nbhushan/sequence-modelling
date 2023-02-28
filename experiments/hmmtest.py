@@ -53,7 +53,7 @@ def test():
         obs[n],zes = samplemodel.sample(dim , N[n])  
     
     for seq in range(len(obs)):
-        print 'Length of observation sequence '+ str(seq) + ' :'+ str(obs[seq].shape[1])
+        print('Length of observation sequence '+ str(seq) + ' :'+ str(obs[seq].shape[1]))
 
 
         #Initialize transition Matrix
@@ -73,38 +73,38 @@ def test():
     trainmodel = StandardHMM(A, emmissionModel)
     
     
-    print "\n Initial HMM model:\n "    
-    print trainmodel
-    print
-    print "\nInitial Emmission model: \n" , trainmodel.O
-    print '*'*80   
+    print("\n Initial HMM model:\n ")    
+    print(trainmodel)
+    print()
+    print("\nInitial Emmission model: \n" , trainmodel.O)
+    print('*'*80)   
 
 
     # Fit the model to the data and print results
     newloglikehood,ll, duration, rankn, res= trainmodel.hmmFit(obs , maxiter = 20 , epsilon = 1e-6, \
                                      debug=True)  
     path=[None]*numseq
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         path[seq] = trainmodel.viterbi(obs[seq]) 
     
-    print "Log likelihood: \n" , newloglikehood  
-    print "Re-estimated HMM Model: \n" , trainmodel
-    print "Re-estimated Emmission model: \n" , trainmodel.O
+    print("Log likelihood: \n" , newloglikehood)  
+    print("Re-estimated HMM Model: \n" , trainmodel)
+    print("Re-estimated Emmission model: \n" , trainmodel.O)
     
     #Viterbi state duration
     lengths=[None]*numseq
     for idx,stateseq in enumerate(path):
         lengths[idx] = trainmodel.estimateviterbiduration(stateseq)
     for length in lengths:        
-        print 'Viterbi state duration:', np.max(length[0]) ,np.max(length[1]), np.max(length[2]), np.max(length[3])     
-    print 'Posterior distribution duration estimation:', duration
+        print('Viterbi state duration:', np.max(length[0]) ,np.max(length[1]), np.max(length[2]), np.max(length[3]))     
+    print('Posterior distribution duration estimation:', duration)
     
     #Visualize
     uniqueid = 'qdhmmtest'
     from matplotlib.pyplot import figure, show    
     from matplotlib.backends.backend_pdf import PdfPages    
     pp = PdfPages(uniqueid+'.pdf')      
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         fa = figure()
         viz.view_viterbi(fa.add_subplot(1,1,1), obs, path, trainmodel.O.mu, seq)   
         fa.tight_layout()    
@@ -115,7 +115,7 @@ def test():
         pp.savefig()
     fc=figure()
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)        
-    print 'Close the plot window to end the program.'  
+    print('Close the plot window to end the program.')  
     pp.savefig()
     show() 
  

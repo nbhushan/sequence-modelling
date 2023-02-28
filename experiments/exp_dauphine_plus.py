@@ -78,15 +78,15 @@ def test():
     var=[]
     x,y=0,0
     for seq in range(len(obs)):
-        print 'seq : ', seq
+        print('seq : ', seq)
         y = obs[seq].shape[1] + y
-        print x , y
+        print(x , y)
         x=y
-        print 'Mean: ', np.mean(obs[seq])
+        print('Mean: ', np.mean(obs[seq]))
         means.append(np.mean(obs[seq]))
-        print 'Variance : ', np.var(obs[seq])
+        print('Variance : ', np.var(obs[seq]))
         var.append(np.var(obs[seq]))
-        print '-'*60
+        print('-'*60)
     
 
     uniqueid = 'dauphine_1107to1109qdhmm'    
@@ -119,25 +119,25 @@ def test():
     
     data = [seq for seq in obs if np.var(seq)> 4000.]
     
-    print 'number of sequences: ', len(data)
+    print('number of sequences: ', len(data))
     for seq in range(len(data)):
-        print 'Length of observation sequence ' + str(seq) + ' :', data[seq].shape[1]    
+        print('Length of observation sequence ' + str(seq) + ' :', data[seq].shape[1])    
     
-    print 'Initial Model \n',dauphinemodel
+    print('Initial Model \n',dauphinemodel)
     
     likelihood,ll = dauphinemodel.qdhmmFit(data,5,1e-5, debug=True)    
     
     path=[None]*len(data)
-    for seq in xrange(len(data)):
+    for seq in range(len(data)):
         path[seq] = dauphinemodel.viterbi(data[seq]) 
     
-    print 'LLH: ', likelihood
-    print 'Re-estimated Model\n',dauphinemodel
+    print('LLH: ', likelihood)
+    print('Re-estimated Model\n',dauphinemodel)
 
 
    #Visualize
   
-    for seq in xrange(len(data)):
+    for seq in range(len(data)):
         fa = figure()
         viz.view_viterbi(fa.add_subplot(1,1,1), data, path, dauphinemodel.O.mu, seq)   
         fa.tight_layout()  
@@ -147,7 +147,7 @@ def test():
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
     pp.close()    
-    print 'Close the plot window to end the program.'    
+    print('Close the plot window to end the program.')    
     #show() 
           
  

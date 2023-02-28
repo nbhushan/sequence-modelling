@@ -12,7 +12,7 @@ import numpy as np
 from emissionplus import Gaussian
 from qdhmm import QDHMM
 import hmmviz as viz
-import cPickle as pickle
+import pickle as pickle
 
 
 def test():
@@ -49,7 +49,7 @@ def test():
     numseq = 1
     obs = [np.newaxis] * numseq 
     obs[0]=np.loadtxt("libe16099h17h.csv",delimiter=",",skiprows=1)[np.newaxis,:]
-    print 'Length of observation sequence:', obs[0].shape[1]
+    print('Length of observation sequence:', obs[0].shape[1])
   
 
     uniqueid = 'libe16099h17hqdhmm'    
@@ -57,32 +57,32 @@ def test():
     from matplotlib.backends.backend_pdf import PdfPages    
     pp = PdfPages(uniqueid+'.pdf')     
 
-    for seq in xrange(len(obs)):
+    for seq in range(len(obs)):
         fb=figure()
         az=fb.add_subplot(1,1,1)
-        x=range(obs[seq].shape[1])
+        x=list(range(obs[seq].shape[1]))
         az.plot(x, obs[seq].flatten())
         az.set_title('Data sequence: ' + str(seq) )     
         pp.savefig()        
         pickle.dump(obs[seq], open("Libepowerdata_"+str(seq)+".p",'wb'))
 
    
-    print 'Initial Model \n',libemodel
+    print('Initial Model \n',libemodel)
     
     likelihood,ll = libemodel.qdhmmFit(obs, 10, 1e-5, debug=True)    
     
     path=[None]*len(obs)
-    for seq in xrange(len(obs)):
+    for seq in range(len(obs)):
         path[seq] = libemodel.viterbi(obs[seq]) 
         pickle.dump(path[seq], open("Libeviterbipath_"+str(seq)+".p",'wb'))
     
-    print 'LLH: ', likelihood
-    print 'Re-estimated Model\n',libemodel
+    print('LLH: ', likelihood)
+    print('Re-estimated Model\n',libemodel)
 
 
    #Visualize
   
-    for seq in xrange(len(obs)):
+    for seq in range(len(obs)):
         fa = figure()
         viz.view_viterbi(fa.add_subplot(1,1,1), obs, path, libemodel.O.mu, seq)   
         fa.tight_layout()  
@@ -92,7 +92,7 @@ def test():
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
     pp.close()    
-    print 'Finished! Check results.'  
+    print('Finished! Check results.')  
     #show() 
           
  
