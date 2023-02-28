@@ -46,38 +46,38 @@ def test():
     obs = [np.newaxis] * numseq 
     obs[0]=np.loadtxt(r"lemonde230708h19h.csv",delimiter=",",skiprows=1)[np.newaxis,:]
     #obs[0] = obs[0][:,1200:11200]
-    print 'Length of observation sequence:', obs[0].shape[1]
+    print('Length of observation sequence:', obs[0].shape[1])
  
             
 
-    print "\nHMM MODEL USED TO INITIALIZE EM:\n "    
-    print model
-    print '*'*80   
+    print("\nHMM MODEL USED TO INITIALIZE EM:\n ")    
+    print(model)
+    print('*'*80)   
 
     # Fit the model to the data and print results
     newloglikehood,ll, duration, rankn, res = model.hmmFit(obs , maxiter = 2 , epsilon = 1e-6, \
                                      debug=True)    
     path=[None]*numseq
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         path[seq] = model.viterbi(obs[seq])    
     
-    print "Log likelihood: \n" , newloglikehood  
-    print "Re-estimated HMM Model: \n" , model
-    print 'posterior taus:', duration
+    print("Log likelihood: \n" , newloglikehood)  
+    print("Re-estimated HMM Model: \n" , model)
+    print('posterior taus:', duration)
     #Viterbi state duration
     lengths=[None]*numseq
     for idx,stateseq in enumerate(path):
         lengths[idx] = model.estimateviterbiduration(stateseq)
     for length in lengths:        
-        print 'Viterbi state duration:', np.max(length[0]) ,np.max(length[1]), np.max(length[2]), np.max(length[3])     
-    print 'Posterior distribution duration estimation:', duration
+        print('Viterbi state duration:', np.max(length[0]) ,np.max(length[1]), np.max(length[2]), np.max(length[3]))     
+    print('Posterior distribution duration estimation:', duration)
     
     #Visualize
     uniqueid = 'lemondeqdhmm'
     from matplotlib.pyplot import figure, show    
     from matplotlib.backends.backend_pdf import PdfPages    
     pp = PdfPages(uniqueid+'.pdf')      
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         fa = figure()
         viz.view_viterbi(fa.add_subplot(1,1,1), obs, path, model.O.mu, seq)   
         fa.tight_layout()    
@@ -88,7 +88,7 @@ def test():
         pp.savefig()
     fc=figure()
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)        
-    print 'Close the plot window to end the program.'  
+    print('Close the plot window to end the program.')  
     pp.savefig()
     show() 
  

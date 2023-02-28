@@ -49,67 +49,67 @@ def test():
     numseq = 1
     obs = [np.newaxis] * numseq 
     obs[0]= np.loadtxt("1Household.csv",delimiter=",",skiprows=1)[np.newaxis,:]
-    print 'Length of observation sequence 2 :', obs[0].shape[1]
+    print('Length of observation sequence 2 :', obs[0].shape[1])
     
 
     
 #==============================================================================
-    print 'Initial Model \n',wintermodel
-    print 'Initial Emission Model\n', wintermodel.O
+    print('Initial Model \n',wintermodel)
+    print('Initial Emission Model\n', wintermodel.O)
     
     likelihood,ll, durationlist, ranknlist, reslist= wintermodel.hmmFit(obs,100,1e-6, debug=True)   
     path=[None]*numseq
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         path[seq] = wintermodel.viterbi(obs[seq]) 
     
-    print 'LLH: ', likelihood
-    print 'Re-estimated Model\n',wintermodel
-    print 'Re-estimated Emission Model\n',wintermodel.O
+    print('LLH: ', likelihood)
+    print('Re-estimated Model\n',wintermodel)
+    print('Re-estimated Emission Model\n',wintermodel.O)
 #==============================================================================
     
-    print "Creating 50 energy profiles of feeder A"
+    print("Creating 50 energy profiles of feeder A")
     profile_list =[]
     n = 0
     while n < 50:
         profile_list.append(wintermodel.sample(N = 1440)[0][0])
         n = n+1
-    new_list = map(list, zip(*profile_list))     
+    new_list = list(map(list, list(zip(*profile_list))))     
     feeder_power_A = sum(new_list,1).T
 
 #==============================================================================
 #==============================================================================
     
-    print "Creating 50 energy profiles of feeder B"
+    print("Creating 50 energy profiles of feeder B")
     profile_list =[]
     n = 0
     while n < 50:
         profile_list.append(wintermodel.sample(N = 1440)[0][0])
         n = n+1
-    new_list = map(list, zip(*profile_list))     
+    new_list = list(map(list, list(zip(*profile_list))))     
     feeder_power_B = sum(new_list,1).T
 
 #==============================================================================
 #==============================================================================
     
-    print "Creating 50 energy profiles of feeder C"
+    print("Creating 50 energy profiles of feeder C")
     profile_list =[]
     n = 0
     while n < 50:
         profile_list.append(wintermodel.sample(N = 1440)[0][0])
         n = n+1
-    new_list = map(list, zip(*profile_list))     
+    new_list = list(map(list, list(zip(*profile_list))))     
     feeder_power_C = sum(new_list,1).T
 
 #==============================================================================
 #==============================================================================
     
-    print "Creating 50 energy profiles of feeder D"
+    print("Creating 50 energy profiles of feeder D")
     profile_list =[]
     n = 0
     while n < 50:
         profile_list.append(wintermodel.sample(N = 1440)[0][0])
         n = n+1
-    new_list = map(list, zip(*profile_list))     
+    new_list = list(map(list, list(zip(*profile_list))))     
     feeder_power_D = sum(new_list,1).T
 
 #==============================================================================

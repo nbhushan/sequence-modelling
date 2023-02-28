@@ -54,27 +54,27 @@ def test():
     
 
     
-    print 'Initial Model \n',typeAmodel
-    print 'Initial Emission Model\n', typeAmodel.O
-    print 'Learning HMM model...'
+    print('Initial Model \n',typeAmodel)
+    print('Initial Emission Model\n', typeAmodel.O)
+    print('Learning HMM model...')
     
     likelihood,ll, durationlist, ranknlist, reslist= typeAmodel.hmmFit(obs,100,1e-6, debug=False)   
     path=[None]*numseq
-    for seq in xrange(numseq):
+    for seq in range(numseq):
         path[seq] = typeAmodel.viterbi(obs[seq]) 
     
-    print 'LLH: ', likelihood
-    print 'Re-estimated Model\n',typeAmodel
-    print 'Re-estimated Emission Model\n',typeAmodel.O
+    print('LLH: ', likelihood)
+    print('Re-estimated Model\n',typeAmodel)
+    print('Re-estimated Emission Model\n',typeAmodel.O)
     
     
-    print "Creating 138 energy profiles of type A"
+    print("Creating 138 energy profiles of type A")
     profile_list =[]
     n = 0
     while n < 250:
         profile_list.append(typeAmodel.sample(N = 1152)[0][0])
         n = n+1
-    new_list = map(list, zip(*profile_list))     
+    new_list = list(map(list, list(zip(*profile_list))))     
     
     
     with open("HMM_profiles_output_typeD.csv", "wb") as f:
@@ -89,7 +89,7 @@ def test():
         lengths[idx] = typeAmodel.estimateviterbiduration(stateseq)
     for length in lengths:   
         for n in range(A.shape[1]):
-            print 'Viterbi state duration:', np.max(length[n])
+            print('Viterbi state duration:', np.max(length[n]))
 
     
     #Visualize
@@ -113,7 +113,7 @@ def test():
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
     pp.close()    
-    print 'Close the plot window to end the program.'    
+    print('Close the plot window to end the program.')    
     show()         
     
        

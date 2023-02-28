@@ -6,7 +6,7 @@ Created on Thu May 30 15:38:44 2013
 """
 
 import numpy as np
-from utils import logsumexp
+from sequence_modelling.utils import logsumexp
 from scipy import sparse
 import matplotlib.pyplot as plt
 import logging,sys
@@ -76,7 +76,7 @@ class HMMPlus:
         
         
         #generate obs using the hmm model
-        for n in xrange(N):
+        for n in range(N):
             zes[n]=d
             obs[:,n] = self.O.Sample(d)
             if d==0:
@@ -114,8 +114,8 @@ class HMMPlus:
         psi =  np.zeros((self.D, N), int)
         
         #Induction
-        for n in xrange(1, N):
-            for k in xrange(self.D):
+        for n in range(1, N):
+            for k in range(self.D):
                 #pdb.set_trace()
                 prob = V[:, n- 1][:,np.newaxis] + self.logA[:,k]
                 V[k, n] = np.max(prob, 0) + logB[k,n ]
@@ -123,7 +123,7 @@ class HMMPlus:
         
         #calculate sequence through most lilely states
         path[-1]=np.argmax(V[:,-1][:,np.newaxis], 0)
-        for n in xrange(N-2,-1,-1):
+        for n in range(N-2,-1,-1):
             path[n]=psi[path[n+1],n+1]
         test = np.digitize(path,tau,right=True)    
         return test       
@@ -151,7 +151,7 @@ class HMMPlus:
         logAlpha[:,0] = logw + logB[:,0]  
         # pdb.set_trace()
         #Induction                                        
-        for n in xrange(1, N):
+        for n in range(1, N):
                 logAlpha[:,n] = logsumexp(self.logA[:,:].T + \
                                         logAlpha[:,n-1],1) + logB[:,n]
         logger.debug('Time to compute alpha matrix : %.5f s '% (time.time()-to))
@@ -173,7 +173,7 @@ class HMMPlus:
         logBeta[:,-1] = 0.0
         #pdb.set_trace()
         #Induction
-        for n in xrange(N-2, -1, -1):
+        for n in range(N-2, -1, -1):
             logBeta[:,n] = logsumexp(logBeta[:,n+1]+ \
                                            self.logA[:,:] + \
                                                         logB[:,n+1], axis=1)                                      
@@ -213,7 +213,7 @@ class HMMPlus:
         #Estimate Ksi at every time step n, and store the relevane parameters 
         #required for the computation and zeta and eta
         to=time.time()
-        for n in xrange (N-1): 
+        for n in range (N-1): 
             temp=logB[:,n+1] + logBeta[:,n+1]            
             temp_array[:,:] = logAlpha[:,n][:,np.newaxis] + self.logA[:,:]\
                                                                     + temp
@@ -245,7 +245,7 @@ class HMMPlus:
         logetalist = [np.newaxis] * numseq        
         ll=[]
         
-        for iteration in xrange(maxiter):   
+        for iteration in range(maxiter):   
             start_time=time.time()
             logger.debug(' ------------------------------------------------')
             logger.debug('iter: %d'% iteration ) 
@@ -338,7 +338,7 @@ class HMMPlus:
         ax.legend(prop=dict(size='xx-small'))
         
     def plotconvergence(self,ax,ll):
-        x = range(len(ll))
+        x = list(range(len(ll)))
         ax.plot(x,ll)
         ax.set_title('EM convergence')
         ax.set_ylabel('LLH')

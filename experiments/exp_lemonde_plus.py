@@ -45,19 +45,19 @@ def test():
     obs = [np.newaxis] * numseq 
     obs[0]=np.loadtxt("lemonde_test.csv",delimiter=",",skiprows=1)[np.newaxis,:]
     #obs[0] = obs[0][:,1200:11200]
-    print 'Length of observation sequence:', obs[0].shape[1]
+    print('Length of observation sequence:', obs[0].shape[1])
 
     
-    print 'Initial Model \n',lemondemodel
+    print('Initial Model \n',lemondemodel)
     start_time=time.time()
     likelihood,ll = lemondemodel.qdhmmFit(obs,10,1e-6,True, 'local')
     end_time=time.time()
-    print 'Time taken to estimate parameters (s) :', (end_time-start_time)    
+    print('Time taken to estimate parameters (s) :', (end_time-start_time))    
     path=[None]*len(obs)
-    for seq in xrange(len(obs)):
+    for seq in range(len(obs)):
         path[seq] = lemondemodel.viterbi(obs[seq]) 
-    print 'LLH: ', likelihood
-    print 'Re-estimated Model\n',lemondemodel
+    print('LLH: ', likelihood)
+    print('Re-estimated Model\n',lemondemodel)
 
     
     #Visualize
@@ -68,7 +68,7 @@ def test():
     for seq in range(len(obs)):    
         fb = figure()
         aa = fb.add_subplot(111)
-        x=range(obs[seq].shape[1])
+        x=list(range(obs[seq].shape[1]))
         aa.plot(x,obs[seq].flatten())
         aa.set_xlabel('time (s)')
         aa.set_ylabel('Power (W)')
@@ -82,7 +82,7 @@ def test():
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
     pp.close()    
-    print 'Close the plot window to end the program.'    
+    print('Close the plot window to end the program.')    
     show() 
    
  

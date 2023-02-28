@@ -10,10 +10,10 @@ dirname=os.path.dirname
 sys.path.append(os.path.join(dirname(dirname(__file__)))) 
 
 import numpy as np
-from emissionplus import Gaussian
-from qdhmm import QDHMM
+from sequence_modelling.emissionplus import Gaussian
+from sequence_modelling.qdhmm import QDHMM
 import time
-import hmmviz as viz
+import sequence_modelling.hmmviz as viz
 
 
 

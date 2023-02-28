@@ -86,7 +86,7 @@ class QDHMM:
         #Base case, when n=0, select initial state
         d = np.where(np.random.multinomial(1,w)==1)[0][0]               
         #generate obs using the hmm model
-        for n in xrange(N):
+        for n in range(N):
             zes[n]=d
             #obs[:,n] = self.O.Sample(d)
             if d==0:
@@ -155,8 +155,8 @@ class QDHMM:
         psi =  np.zeros((self.D, N), int)
         #pdb.set_trace()
         #Induction
-        for n in xrange(1, N):  
-            for k in xrange(D):
+        for n in range(1, N):  
+            for k in range(D):
                 prob = V[:, n- 1] * self.A[:,k] 
                 #prob=self.A.getcol(k).multiply(V[:,n-1:n])
                 V[k, n] = np.max(prob, 0) * B[k,n ]
@@ -166,7 +166,7 @@ class QDHMM:
                 V[:,n] *=c[n]   
         #calculate sequence through most lilely states
         path[-1]=np.argmax(V[:,-1][:,np.newaxis], 0)
-        for n in xrange(N-2,-1,-1):
+        for n in range(N-2,-1,-1):
             path[n]=psi[path[n+1],n+1]
         test = np.digitize(path,tau,right=True)    
         logger.debug('Time to compute viterbi path : %.5f s '% (time.time()-to))
@@ -206,8 +206,8 @@ class QDHMM:
         D = self.D
         N = B.shape[1]    
         assert B.shape == (D,N)       
-        Alpha = np.zeros((D, 1), dtype=np.float)
-        Alphahat = np.zeros((D, N), dtype=np.float)
+        Alpha = np.zeros((D, 1), dtype=np.float64)
+        Alphahat = np.zeros((D, N), dtype=np.float64)
         c = np.ones((N))
         w = np.zeros((D))
         p = self.p
@@ -220,7 +220,7 @@ class QDHMM:
             c[0] = 1.0 / np.sum(Alpha[:,0])
             Alphahat[:,0] = c[0] * Alpha[:,0] 
         #Induction   
-        for n in xrange(1, N):
+        for n in range(1, N):
             Alphahat[:,n] = (self.A.T.dot(Alphahat[:,n-1])) * B[:,n]
             if np.sum(Alphahat[:,n]) !=0:
                 c[n] = 1.0 / np.sum(Alphahat[:,n])
@@ -267,7 +267,7 @@ class QDHMM:
         Betahat[:,-1] = 1.0 
         Betahat[:,-1] = c[-1] * Betahat[:,-1]  
         #Induction        
-        for n in xrange(N-2, -1, -1):
+        for n in range(N-2, -1, -1):
             Betahat[:,n] = self.A.dot((c[n]*Betahat[:,n+1]*B[:,n+1]))
         logger.debug('Time to compute beta matrix : %.5f s '% (time.time()-to))                                                        
         return Betahat        
@@ -318,7 +318,7 @@ class QDHMM:
         Gamma/=np.sum(Gamma,0)
         logger.debug('Time to compute gamma matrix : %.5f s '% (time.time()-to))   
         to=time.time()
-        for n in xrange(N-1):   
+        for n in range(N-1):   
             temp_array = sparse.csc_matrix(self.A.multiply(Alpha[:,n:n+1]
                                             * B[:,n+1] * Beta[:,n+1]), dtype=float)
             #Normalize                  
@@ -377,7 +377,7 @@ class QDHMM:
         etalist = [np.newaxis] * numseq        
         ll=[]
         estimatetau=True
-        for iteration in xrange(maxiter):   
+        for iteration in range(maxiter):   
             start_time=time.time()
             logger.debug(' ------------------------------------------------')
             logger.debug('iter: %d'% iteration )             

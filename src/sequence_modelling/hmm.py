@@ -7,7 +7,7 @@ Created on Tue Apr 23 12:04:01 2013
 
 import numpy as np
 import logging,sys
-from utils import logsumexp
+from sequence_modelling.utils import logsumexp
 import time
 import pdb
 
@@ -77,7 +77,7 @@ class StandardHMM:
         #Base case, when n=0, select initial state
         k = np.where(np.random.multinomial(1,np.exp(self.logA[-1]))==1)[0][0]
         #generate obs using the hmm model
-        for n in xrange(N):
+        for n in range(N):
             zes[n]=k
             #obs[:,n] =   self.O.Sample(k)
             k = np.where(np.random.multinomial(1,np.exp(self.logA[k]))==1)[0][0]
@@ -127,14 +127,14 @@ class StandardHMM:
         # Track Maximal States
         psi =  np.zeros((self.K, N), int )        
         #Induction
-        for n in xrange(1, N):    
+        for n in range(1, N):    
             for k in range(self.K):
                 prob = V[:, n- 1] + self.logA[:-1][:,k]
                 V[k, n] = np.max(prob, 0) + logB[k,n ]
                 psi[k,n] = np.argmax(prob, axis = 0)            
         #calculate sequence through most lilely states
         path[-1]=np.argmax(V[:,-1])
-        for n in xrange(N-2,-1,-1):
+        for n in range(N-2,-1,-1):
             path[n]=psi[path[n+1],n+1]    
         return path       
   
@@ -175,7 +175,7 @@ class StandardHMM:
         # Base case, when n=0       
         logAlpha[:,0] = self.logA[-1] + logB[:,0]                                   
         #induction
-        for n in xrange(1, N):      
+        for n in range(1, N):      
             logAlpha[:,n] = logsumexp(self.logA[:-1][:,:].T + \
                                                 logAlpha[:,n-1],1) + logB[:,n]                                                        
         return logAlpha        
@@ -216,7 +216,7 @@ class StandardHMM:
         #Base case when n = N
         logBeta[:,-1] = 0.0    
         #Induction
-        for n in xrange(N-2, -1, -1):
+        for n in range(N-2, -1, -1):
             logBeta[:,n] = logsumexp(logBeta[:,n+1]+\
                                             self.logA[:-1][:,:] \
                                                             + logB[:,n+1],1)        
@@ -266,7 +266,7 @@ class StandardHMM:
         logGamma = (logAlpha + logBeta)    
         logGamma-=logsumexp(logGamma,0)
         #compute ksi
-        for n in xrange (N-1):
+        for n in range (N-1):
             temp=logB[:,n+1] + logBeta[:,n+1]  
             logKsi[n,:,:] = (logAlpha[:,n][:,np.newaxis] + 
                                 self.logA[:-1][:,:] + temp)
@@ -330,7 +330,7 @@ class StandardHMM:
         rankn = [None]* numseq
         N=[None] * numseq
     
-        for iteration in xrange(maxiter):      
+        for iteration in range(maxiter):      
             start_time=time.time()
             logger.debug('-------------------------------------------')
             logger.debug('iter: %d'% iteration ) 
@@ -339,7 +339,7 @@ class StandardHMM:
                 N[seq] = obsseq.shape[1]                      
                 if self.O.__class__.__name__=='Discrete':                    
                     obsmatrix[seq] = np.zeros((len(self.O.c),N))
-                    obsmatrix[seq][ np.int_(obsseq),xrange(N)] = 1                                         
+                    obsmatrix[seq][ np.int_(obsseq),list(range(N))] = 1                                         
                 #E-step
                 #calcualte the posterior probability for each sequence                                         
                 logB[seq] = self.O.loglikelihood(obsseq)                                     
@@ -369,8 +369,7 @@ class StandardHMM:
                             for g in logGammalist]),axis = 0) -
                                 np.log(np.double(numseq)))           
             logKsiarray = np.concatenate(logksilist, axis = 0)   
-            logGammasArray = (np.concatenate(map(lambda x: x[:,:-1],
-                                logGammalist),axis =  1))
+            logGammasArray = (np.concatenate([x[:,:-1] for x in logGammalist],axis =  1))
             self.logA[:-1] = (logsumexp(logKsiarray,axis =  0) - 
                                       logsumexp(logGammasArray, axis= 1)
                                       [:,np.newaxis])                
@@ -437,7 +436,7 @@ class StandardHMM:
                 #Base Case
                 tmp = (N-1-n)*self.logA[k,k] - np.log(1-np.exp(self.logA[k,k]))
                 #Induction
-                for t in xrange(N-2, n,-1):
+                for t in range(N-2, n,-1):
                     tmp = (np.logaddexp(logbeta[k,t], logB[k,t+1]
                                 + self.logA[k,k]+ tmp))
                 for x,i  in enumerate(inotk):
@@ -471,7 +470,7 @@ class StandardHMM:
         ksi = np.exp(ksi)
         K = ksi.shape[1]
         rankn = [None] * K
-        for k in xrange(K):            
+        for k in range(K):            
             rankn[k] = np.argsort(ksi[:,k-1,k])[-rank:]  
         return rankn
         
@@ -493,7 +492,7 @@ class StandardHMM:
         from itertools import groupby   
         K = self.logA.shape[1]
         durations = [None]*K
-        for k in xrange(K):
+        for k in range(K):
             a = path==k
             durations[k]=[sum(g) for b, g in groupby(a) if b]        
         return durations

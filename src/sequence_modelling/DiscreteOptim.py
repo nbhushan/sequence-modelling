@@ -40,9 +40,9 @@ def objective(taus, K, obs, weights):
         mean = np.zeros((1, K))
         var = np.zeros((K, 1, 1))
         normalizer=np.zeros((K, weights.shape[1]))
-        x = np.array(xrange(weights.shape[0]))
+        x = np.array(list(range(weights.shape[0])))
         state = np.digitize(x, tau, right=True)
-        for k in xrange(0,K):
+        for k in range(0,K):
             normalizer[k,:] = np.sum(weights[state==k],0) / \
             np.sum(np.sum(weights[state==k],0)[np.newaxis,:], axis = 1)[:, np.newaxis]   
             mean[:,k] = np.dot( normalizer[k,:] , obs.T)               
@@ -59,9 +59,9 @@ def new_objective(tau, K, obs, weights):
     mean = np.zeros((1, K))
     var = np.zeros((K, 1, 1))
     normalizer=np.zeros((K, weights.shape[1]))
-    x = np.array(xrange(weights.shape[0]))
+    x = np.array(list(range(weights.shape[0])))
     state = np.digitize(x, tau, right=True)
-    for k in xrange(0,K):
+    for k in range(0,K):
         normalizer[k,:] = np.sum(weights[state==k],0) / \
         np.sum(np.sum(weights[state==k],0)[np.newaxis,:], axis = 1)[:, np.newaxis]   
         mean[:,k] = np.dot( normalizer[k,:] , obs.T)               
@@ -284,3 +284,4 @@ def simulated_annealing(obj, weights, obs, maxiter):
                 
 def acceptconfiguration( delta,  T):
     return np.exp(-delta/ T)
+
