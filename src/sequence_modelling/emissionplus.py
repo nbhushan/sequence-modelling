@@ -7,7 +7,7 @@ Created on Thu May 30 16:49:58 2013
 
 import numpy as np
 from scipy.stats import norm
-from scipy.optimize import anneal
+# from scipy.optimize import anneal
 import time
 import sequence_modelling.DiscreteOptim as optim
 import sequence_modelling.hmmviz as viz
@@ -119,15 +119,15 @@ class Gaussian:
                 print(('tau: ', local))
                 print(('local search time:', time.time()-t))
                 self.tau = local
-            elif metaheuristic=='sa':
-                t=time.time()
-                aneal, history= optim.simulated_annealing(self, weights, obs, 20)                
-                print(('aneal search time:', time.time()-t))
-                print(('tau: ',aneal))
-                print('Scipy anneal')
-                pdb.set_trace()
-                print((anneal(optim.new_objective, self.tau, (self.K, obs, weights), schedule='cauchy', T0=10000, Tf=0.0001)))                
-                self.tau = aneal
+            # elif metaheuristic=='sa':
+            #     t=time.time()
+            #     aneal, history= optim.simulated_annealing(self, weights, obs, 20)                
+            #     print(('aneal search time:', time.time()-t))
+            #     print(('tau: ',aneal))
+            #     print('Scipy anneal')
+            #     pdb.set_trace()
+            #     print((anneal(optim.new_objective, self.tau, (self.K, obs, weights), schedule='cauchy', T0=10000, Tf=0.0001)))                
+            #     self.tau = aneal
             #viz.plotcontour(self.K, self.tau, weights, obs, history, str(metaheuristic+str(iteration)))
         normalizer=np.zeros((self.K, weights.shape[1]))
         x = np.array(list(range(weights.shape[0])))
