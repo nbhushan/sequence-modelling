@@ -9,8 +9,8 @@ import numpy as np
 from scipy.stats import norm
 from scipy.optimize import anneal
 import time
-import DiscreteOptim as optim
-import hmmviz as viz
+import sequence_modelling.DiscreteOptim as optim
+import sequence_modelling.hmmviz as viz
 import pdb
 
 class Gaussian:

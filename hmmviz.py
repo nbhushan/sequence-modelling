@@ -8,7 +8,7 @@ Created on Tue Apr 23 12:04:01 2013
 
 import numpy as np
 #import pdb
-import DiscreteOptim as optim
+import sequence_modelling.DiscreteOptim as optim
 #from matplotlib import cm as CM
 
 

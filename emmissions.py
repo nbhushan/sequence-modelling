@@ -6,7 +6,7 @@ Created on Tue Apr 23 12:02:37 2013
 """
 
 import numpy as np
-from utils import logsumexp
+from sequence_modelling.utils import logsumexp
 from scipy.stats import norm
 
 class Gaussian:

@@ -7,7 +7,7 @@ Created on Tue Apr 23 12:04:01 2013
 
 import numpy as np
 import logging,sys
-from utils import logsumexp
+from sequence_modelling.utils import logsumexp
 import time
 import pdb
 
