@@ -6,10 +6,12 @@ Created on Tue Jun 11 10:32:19 2013
 """
 
 import unittest2 as unittest
+from sequence_modelling.qdhmm import QDHMM
 from sequence_modelling.hmm import StandardHMM
 from sequence_modelling.emmissions import Gaussian
 import logging, sys
 import numpy as np
+import pytest
 
 
 log = logging.getLogger("HMM Unit Tests")
