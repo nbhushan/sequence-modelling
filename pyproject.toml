@@ -24,7 +24,7 @@ mypy = "^0.910"
 seaborn = "^0.11.2"
 pep8-naming = "^0.12.1"
 pytest = "^6.2.5"
-unittest2pytest = "^0.4"
+unittest2 = "^1.1.0"
 
 
 [build-system]

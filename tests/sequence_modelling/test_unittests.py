@@ -5,7 +5,7 @@ Created on Tue Jun 11 10:32:19 2013
 @author: nbhushan
 """
 
-import unittest
+import unittest2 as unittest
 from sequence_modelling.hmm import StandardHMM
 from sequence_modelling.emmissions import Gaussian
 import logging, sys
