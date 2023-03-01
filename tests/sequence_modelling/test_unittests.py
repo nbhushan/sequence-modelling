@@ -5,11 +5,9 @@ Created on Tue Jun 11 10:32:19 2013
 @author: nbhushan
 """
 
-import pytest
-from sequence_modelling.hmm import StandardHMM
+import unittest
+from sequence_modelling.hmm import StandardHMM 
 from sequence_modelling.emmissions import Gaussian
-#from hmm_plus import emissionsplus
-#from hmm_plus import hmmplus
 import logging,sys
 import numpy as np
 
@@ -25,7 +23,7 @@ log.addHandler(hdlr)
 #set unittests log level
 log.setLevel(logging.ERROR)
 #set HMM logging level
-hmm.logger.setLevel(logging.ERROR)
+StandardHMM.logger.setLevel(logging.ERROR)
 
 
 class StandardHMMUnitTests(unittest.TestCase):
@@ -33,9 +31,9 @@ class StandardHMMUnitTests(unittest.TestCase):
     def setUp(self):
         log.debug("StandardHMMUnitTests.setUp() -- begin")
         self.A = np.array([[0.6, 0.4], [0.6, 0.4],[1./2, 1./2]])    
-        self.emmissionModel = emmissions.Gaussian(mu = np.array([[-100., 100.]]), \
+        self.emmissionModel = Gaussian(mu = np.array([[-100., 100.]]), \
                                     covar = np.array([[[ 10.]] ,[[10.]]]))
-        self.stdmodel = hmm.StandardHMM(self.A,self.emmissionModel)
+        self.stdmodel = StandardHMM(self.A,self.emmissionModel)
         log.debug("HMMBaseClassTests.setUp() -- end")
         
     def testAcessFunctions(self):
