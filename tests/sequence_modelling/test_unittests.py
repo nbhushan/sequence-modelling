@@ -6,7 +6,7 @@ Created on Tue Jun 11 10:32:19 2013
 """
 
 import unittest
-from sequence_modelling.hmm import StandardHMM 
+import sequence_modelling.hmm as hmm
 from sequence_modelling.emmissions import Gaussian
 import logging,sys
 import numpy as np
@@ -23,7 +23,7 @@ log.addHandler(hdlr)
 #set unittests log level
 log.setLevel(logging.ERROR)
 #set HMM logging level
-StandardHMM.logger.setLevel(logging.ERROR)
+hmm.logger.setLevel(logging.ERROR)
 
 
 class StandardHMMUnitTests(unittest.TestCase):
@@ -33,10 +33,10 @@ class StandardHMMUnitTests(unittest.TestCase):
         self.A = np.array([[0.6, 0.4], [0.6, 0.4],[1./2, 1./2]])    
         self.emmissionModel = Gaussian(mu = np.array([[-100., 100.]]), \
                                     covar = np.array([[[ 10.]] ,[[10.]]]))
-        self.stdmodel = StandardHMM(self.A,self.emmissionModel)
+        self.stdmodel = hmm.StandardHMM(self.A,self.emmissionModel)
         log.debug("HMMBaseClassTests.setUp() -- end")
         
-    def testAcessFunctions(self):
+    def test_AcessFunctions(self):
         log.debug("StandardHMMUnitTests.testAcessFunctions -- begin")
         
         assert self.stdmodel.K == 2
@@ -48,7 +48,7 @@ class StandardHMMUnitTests(unittest.TestCase):
         assert self.emmissionModel.covar.size == 2
         log.debug("StandardHMMUnitTests.testAcessFunctions -- end")
         
-    def testSample(self):
+    def test_Sample(self):
         log.debug("StandardHMMUnitTests.testSample --begin")
         # single univariate sequence
         N = [100]
@@ -128,7 +128,7 @@ class StandardHMMUnitTests(unittest.TestCase):
         log.debug("StandardHMMUnitTests.testSample --end")
 
         
-    def testHMMFit(self):
+    def test_HMMFit(self):
         log.debug("StandardHMMUnitTests.testHMMFit --begin")
         N=[100]
         dim = 1
@@ -139,10 +139,10 @@ class StandardHMMUnitTests(unittest.TestCase):
         log.debug("StandardHMMUnitTests.testHMMFit --end")
         
        
-    def testAlpha(self):
+    def test_Alpha(self):
         log.debug("StandardHMMUnitTests.testAlpha --begin")
         obs = [np.newaxis]
-        obs[0] = np.loadtxt('univariate_unittest.csv',delimiter = ',')
+        obs[0] = np.loadtxt('tests/sequence_modelling/data/univariate_unittest.csv',delimiter = ',')
         obs[0] = obs[0][np.newaxis]
         likelihood, ll, duration, rankn, res = self.stdmodel.hmmFit(obs, maxiter = 1, \
                                  debug=False)
@@ -152,10 +152,10 @@ class StandardHMMUnitTests(unittest.TestCase):
         log.debug("StandardHMMUnitTests.testAlpha --end")
        
                                 
-    def testEM(self):
+    def test_EM(self):
         log.debug("StandardHMMUnitTests.testEM --begin")
         obs = [np.newaxis]
-        obs[0] = np.loadtxt('univariate_unittest.csv',delimiter = ',')
+        obs[0] = np.loadtxt('tests/sequence_modelling/data/univariate_unittest.csv',delimiter = ',')
         obs[0] = obs[0][np.newaxis]
         likelihood, ll, duration, rankn, res  = self.stdmodel.hmmFit(obs, 10, 1e-6, \
                                         debug=False)

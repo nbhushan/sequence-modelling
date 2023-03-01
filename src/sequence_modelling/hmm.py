@@ -171,7 +171,7 @@ class StandardHMM:
         K = self.K
         N = logB.shape[1]    
         assert logB.shape == (K,N)       
-        logAlpha = np.zeros((K, N), dtype=np.float)           
+        logAlpha = np.zeros((K, N), dtype=np.float64)           
         # Base case, when n=0       
         logAlpha[:,0] = self.logA[-1] + logB[:,0]                                   
         #induction
@@ -212,7 +212,7 @@ class StandardHMM:
         """   
         K = self.K
         N = logB.shape[1]           
-        logBeta = np.zeros((K, N), dtype=np.float)               
+        logBeta = np.zeros((K, N), dtype=np.float64)               
         #Base case when n = N
         logBeta[:,-1] = 0.0    
         #Induction
@@ -257,8 +257,8 @@ class StandardHMM:
 
         K = self.K        
         N = logB.shape[1]                
-        logKsi = np.zeros(( N-1, K, K), dtype=np.float)
-        logGamma = np.zeros((K,N), dtype = np.float)        
+        logKsi = np.zeros(( N-1, K, K), dtype=np.float64)
+        logGamma = np.zeros((K,N), dtype = np.float64)        
         logAlpha = self.alpha(logB)        
         logBeta = self.beta(logB)      
         loglikelihood = logsumexp(logAlpha[:,-1])         
