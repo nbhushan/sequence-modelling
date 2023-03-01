@@ -10,9 +10,9 @@ dirname=os.path.dirname
 sys.path.append(os.path.join(dirname(dirname(__file__)))) 
 
 import numpy as np
-from sequence_modelling.emmissions import Gaussian
+import sequence_modelling.emmissions as emissions
 from sequence_modelling.hmm import StandardHMM
-import sequence_modelling.emissionplus 
+import sequence_modelling.emissionplus as emissionplus
 from sequence_modelling import QDHMM
 import sequence_modelling.hmmviz as viz
 
@@ -100,7 +100,7 @@ def test():
     print('Posterior distribution duration estimation:', duration)
     
     #Visualize
-    uniqueid = 'qdhmmtest'
+    uniqueid = 'output/qdhmmtest'
     from matplotlib.pyplot import figure, show    
     from matplotlib.backends.backend_pdf import PdfPages    
     pp = PdfPages(uniqueid+'.pdf')      
