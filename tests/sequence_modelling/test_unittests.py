@@ -6,7 +6,7 @@ Created on Tue Jun 11 10:32:19 2013
 """
 
 import unittest
-import sequence_modelling.hmm as hmm
+from sequence_modelling.hmm import StandardHMM
 from sequence_modelling.emmissions import Gaussian
 import logging,sys
 import numpy as np
@@ -23,7 +23,7 @@ log.addHandler(hdlr)
 #set unittests log level
 log.setLevel(logging.ERROR)
 #set HMM logging level
-hmm.logger.setLevel(logging.ERROR)
+#hmm.logger.setLevel(logging.ERROR)
 
 
 class StandardHMMUnitTests(unittest.TestCase):
@@ -33,7 +33,7 @@ class StandardHMMUnitTests(unittest.TestCase):
         self.A = np.array([[0.6, 0.4], [0.6, 0.4],[1./2, 1./2]])    
         self.emmissionModel = Gaussian(mu = np.array([[-100., 100.]]), \
                                     covar = np.array([[[ 10.]] ,[[10.]]]))
-        self.stdmodel = hmm.StandardHMM(self.A,self.emmissionModel)
+        self.stdmodel = StandardHMM(self.A,self.emmissionModel)
         log.debug("HMMBaseClassTests.setUp() -- end")
         
     def test_AcessFunctions(self):
@@ -130,7 +130,7 @@ class StandardHMMUnitTests(unittest.TestCase):
         
     def test_HMMFit(self):
         log.debug("StandardHMMUnitTests.testHMMFit --begin")
-        N=[100]
+        N=[10000]
         dim = 1
         obs = [np.newaxis] * len(N) 
         for n in range(len(N)):
@@ -175,7 +175,7 @@ class StandardHMMUnitTests(unittest.TestCase):
 
         
 if __name__ == '__main__':
-    logging.basicConfig( stream=sys.stderr )
+    logging.basicConfig(stream=sys.stderr)
     unittest.main()
         
 
