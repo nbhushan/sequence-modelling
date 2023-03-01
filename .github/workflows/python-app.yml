@@ -36,4 +36,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unittest
       run: |
-        poetry run python tests/sequence_modelling/test_unittests.py 
+        python -m unittest2 tests/sequence_modelling/test_unittests.py 
