@@ -23,7 +23,7 @@ pep8 = "^1.7.1"
 mypy = "^0.910"
 seaborn = "^0.11.2"
 pep8-naming = "^0.12.1"
-pytest = "^6.2.5"
+pytest = "^7.2.1"
 unittest2 = "^1.1.0"
 
 

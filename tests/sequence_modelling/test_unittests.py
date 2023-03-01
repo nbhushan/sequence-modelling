@@ -11,7 +11,6 @@ from sequence_modelling.hmm import StandardHMM
 from sequence_modelling.emmissions import Gaussian
 import logging, sys
 import numpy as np
-import pytest
 
 
 log = logging.getLogger("HMM Unit Tests")
