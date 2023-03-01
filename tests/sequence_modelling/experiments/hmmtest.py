@@ -65,7 +65,7 @@ def test():
     
     # Create an  HMM and Gaussian emmission object        
     emmissionModel = (
-        Gaussian(mu = np.array([[932.23915 , 46.69044, 45.2,  26.552]]), \
+        emissions.Gaussian(mu = np.array([[932.23915 , 46.69044, 45.2,  26.552]]), \
                             covar = np.array([[[7568.806]], \
                                               [[158.944]], \
                                               [[78.944]], \
