@@ -7,7 +7,6 @@ Created on Tue Jun 11 16:26:49 2013
 import numpy as np
 
 
-    
 def logsumexp(a, axis=None):
     """Compute the log of the sum of exponentials of input elements,
        Modified scipy.misc logsumexp to accept [-inf,-inf].
@@ -50,17 +49,15 @@ def logsumexp(a, axis=None):
     if axis is None:
         a = a.ravel()
         a_max = a.max()
-        if np.isinf(a_max): return a_max
-        else: return  a_max + np.log(np.sum(np.exp(a-a_max)))
+        if np.isinf(a_max):
+            return a_max
+        else:
+            return a_max + np.log(np.sum(np.exp(a - a_max)))
     else:
         a = np.rollaxis(a, axis)
         a_max = a.max(axis=0)
-        indices= np.isinf(a_max)
-        a_max[indices]=0.0
+        indices = np.isinf(a_max)
+        a_max[indices] = 0.0
         out = np.log(np.sum(np.exp(a - a_max), axis=0))
         out += a_max
         return out
-    
-        
-    
-    

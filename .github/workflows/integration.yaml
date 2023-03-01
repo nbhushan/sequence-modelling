@@ -31,4 +31,4 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with unittest
       run: |
-        unittest -v tests/sequence_modelling/test_unittests.py 
+        unittest -v tests/sequence_modelling/test_unittests.py
