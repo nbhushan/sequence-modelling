@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jun 18 11:31:26 2013
@@ -5,14 +6,10 @@ Created on Tue Jun 18 11:31:26 2013
 @author: nbhushan
 """
 
-import os,sys
-dirname=os.path.dirname
-sys.path.append(os.path.join(dirname(dirname(__file__)))) 
-
+import time
 import numpy as np
 from sequence_modelling.emissionplus import Gaussian
 from sequence_modelling.qdhmm import QDHMM
-import time
 import sequence_modelling.hmmviz as viz
 
 
