@@ -14,7 +14,7 @@ import numpy as np
 import sequence_modelling.emmissions as emissions
 from sequence_modelling.hmm import StandardHMM
 import sequence_modelling.emissionplus as emissionplus
-from sequence_modelling import QDHMM
+from sequence_modelling.qdhmm import QDHMM
 import sequence_modelling.hmmviz as viz
 
 
@@ -125,9 +125,8 @@ def test():
         pp.savefig()
     fc = figure()
     viz.view_EMconvergence(fc.add_subplot(1, 1, 1), ll)
-    print("Close the plot window to end the program.")
     pp.savefig()
-    show()
+    pp.close()
 
 
 if __name__ == "__main__":
