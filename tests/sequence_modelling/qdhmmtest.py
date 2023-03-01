@@ -80,7 +80,7 @@ def test(heuristic):
 
     
     #Visualize
-    uniqueid = '4287'    
+    uniqueid = 'output/diagnostic_plots'    
     from matplotlib.pyplot import figure, show   
     from matplotlib.backends.backend_pdf import PdfPages    
     pp = PdfPages(uniqueid+'.pdf')  
@@ -96,7 +96,7 @@ def test(heuristic):
         viz.view_viterbi(fa.add_subplot(1,1,1), obs, path, initmodel.O.mu, seq=seq)   
         fa.tight_layout()  
         pp.savefig()
-
+    show()
     fc=figure()
     viz.view_EMconvergence(fc.add_subplot(1,1,1),ll)    
     pp.savefig()
