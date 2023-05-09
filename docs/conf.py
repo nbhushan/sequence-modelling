@@ -66,7 +66,7 @@ html_sidebars = {
 html_theme_options = {
     'github_user': 'nbhushan',
     'github_repo': 'Quasi-Deterministic-HMMs',
-    'github_button': true
+    'github_button': 'true'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
