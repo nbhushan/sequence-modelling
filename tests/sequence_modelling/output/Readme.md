@@ -1,1 +1,1 @@
-All the diagnostic plots go here.
+All the diagnostic and learning plots go here.
