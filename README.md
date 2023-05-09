@@ -1,7 +1,3 @@
-![Unit tests](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml/badge.svg?event=push)
-
-![Documentation](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yml/badge.svg?event=push)
-
 # Quasi-deterministic Hidden Markov Models.
 
 Stochastic models such as Hidden Markov Models (HMM) are widely used to model the
