@@ -12,7 +12,7 @@ jobs:
         uses: JRubics/poetry-publish@v1.16
         with:
           python_version: "3.9"
-          poetry_version: "==1.4.3" # (PIP version specifier syntax)
+          poetry_version: "==1.4.2" # (PIP version specifier syntax)
           pypi_token: ${{ secrets.PYPI_TOKEN }}
           allow_poetry_pre_release: "yes"
           ignore_dev_requirements: "yes"
