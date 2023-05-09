@@ -39,11 +39,50 @@
 <ul class="simple">
 <li><p>Hidden Markov Models and Quasi-Deterministic Hidden Markov Models</p></li>
 <li><p>Numerically stable: floating point arithmetic performed in log space to avoid underflow</p></li>
-<li><p>Easy to use (see examples below)</p></li>
+<li><p>Easy to use</p></li>
 <li><p>Pure Python and Numpy based</p></li>
 <li><p>Open source and commercially usable (BSD license)</p></li>
 </ul>
 </section>
+<section id="example-usage">
+<h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sequence_modelling.emissions</span> <span class="kn">import</span> <span class="n">Gaussian</span>
+<span class="kn">from</span> <span class="nn">sequence_modelling.hmm</span> <span class="kn">import</span> <span class="n">StandardHMM</span>
+<span class="kn">import</span> <span class="nn">sequence_modelling.hmmviz</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Define the model parameters</span>
+<span class="c1"># the transition matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+<span class="c1"># the emission object B</span>
+<span class="n">O</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="p">(</span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+                            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]),</span>
+            <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                              <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]))</span>
+
+<span class="c1"># Build the HMM model object</span>
+<span class="n">hmm</span> <span class="o">=</span> <span class="n">StandardHMM</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">O</span><span class="p">)</span>
+
+<span class="c1"># Sample from the generative model</span>
+<span class="n">obs</span><span class="p">,</span> <span class="n">zes</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+ <span class="o">...</span>
+ <span class="c1"># Fit the model to the data</span>
+<span class="n">likelihood</span><span class="p">,</span> <span class="n">ll</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">rankn</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdmodel</span><span class="o">.</span><span class="n">hmmFit</span><span class="p">(</span>
+                  <span class="n">obs</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Decode the most likely state sequence using the Viterbi algorithm</span>
+<span class="n">decoded_path</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">viterbi</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+<span class="c1"># Visualize the state sequence</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot_state_sequence</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">decoded_path</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">O</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">O</span><span class="o">.</span><span class="n">covar</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
