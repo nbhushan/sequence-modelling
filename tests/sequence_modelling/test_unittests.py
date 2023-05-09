@@ -6,9 +6,9 @@ Created on Tue Jun 11 10:32:19 2013
 """
 
 import unittest2 as unittest
-from sequence_modelling.qdhmm import QDHMM
-from sequence_modelling.hmm import StandardHMM
-from sequence_modelling.emmissions import Gaussian
+from sequence_modelling import qdhmm as qdhmm
+from sequence_modelling import hmm as hmm
+from sequence_modelling import emmissions as emissions
 import logging, sys
 import numpy as np
 
@@ -31,10 +31,10 @@ class StandardHMMUnitTests(unittest.TestCase):
     def setUp(self):
         log.debug("StandardHMMUnitTests.setUp() -- begin")
         self.A = np.array([[0.6, 0.4], [0.6, 0.4], [1.0 / 2, 1.0 / 2]])
-        self.emmissionModel = Gaussian(
+        self.emmissionModel = emissions.Gaussian(
             mu=np.array([[-100.0, 100.0]]), covar=np.array([[[10.0]], [[10.0]]])
         )
-        self.stdmodel = StandardHMM(self.A, self.emmissionModel)
+        self.stdmodel = hmm.StandardHMM(self.A, self.emmissionModel)
         log.debug("HMMBaseClassTests.setUp() -- end")
 
     def test_AcessFunctions(self):

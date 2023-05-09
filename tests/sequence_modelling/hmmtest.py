@@ -40,9 +40,9 @@ def test():
         var=np.array([[[7568.806]], [[58.944]], [[28.944]], [[2.025350]]]),
         tau=tau,
     )
-    samplemodel = QDHMM(p, zeta, eta, emmissionModel)
+    samplemodel = qdhmm.QDHMM(p, zeta, eta, emmissionModel)
 
-    # sample data from he emmission model
+    # sample data from the emmission model
 
     N = [1000, 1000, 600, 1000]
     dim = 1
