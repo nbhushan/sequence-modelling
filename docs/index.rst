@@ -17,6 +17,16 @@ Key features
 - Open source and commercially usable (BSD license)
 - Support for discrete and continuous emissions
 
+Installation
+------------
+
+The easiest way to install sequence-modelling is using pip:
+
+.. code-block:: bash
+
+   pip install sequence-modelling
+
+
 Example usage
 -------------
 
