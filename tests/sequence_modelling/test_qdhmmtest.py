@@ -13,7 +13,7 @@ from sequence_modelling.qdhmm import QDHMM
 import sequence_modelling.hmmviz as viz
 
 
-def test(heuristic):
+def test_qdhmm():
     """
     This function has the following workflow:
         1) Define an initial gaussian emmission object
@@ -66,7 +66,7 @@ def test(heuristic):
         "Initial Model used to initialize EM obtained by a random guess \n", initmodel
     )
     start_time = time.time()
-    likelihood, ll = initmodel.qdhmmFit(obs, 10, 1e-6, True, heuristic)
+    likelihood, ll = initmodel.qdhmmFit(obs, 10, 1e-6, True)
     end_time = time.time()
     print("Time taken to estimate parameters (s) :", (end_time - start_time))
     path = [None] * len(obs)
@@ -76,7 +76,7 @@ def test(heuristic):
     print("Re-estimated Model\n", initmodel)
 
     # Visualize
-    uniqueid = "output/diagnostic_plots"
+    uniqueid = "tests/sequence_modelling/output/diagnostic_plots"
     from matplotlib.pyplot import figure, show
     from matplotlib.backends.backend_pdf import PdfPages
 
@@ -103,4 +103,4 @@ def test(heuristic):
 
 
 if __name__ == "__main__":
-    test("local")
+    test_qdhmm()

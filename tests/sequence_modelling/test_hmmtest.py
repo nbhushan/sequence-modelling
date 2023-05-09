@@ -11,9 +11,9 @@ dirname = os.path.dirname
 sys.path.append(os.path.join(dirname(dirname(__file__))))
 
 import numpy as np
-import sequence_modelling.emmissions as emissions
+from sequence_modelling.emissionplus import Gaussian
+from sequence_modelling.emmissions import Gaussian as hmmGaussian
 from sequence_modelling.hmm import StandardHMM
-import sequence_modelling.emissionplus as emissionplus
 from sequence_modelling.qdhmm import QDHMM
 import sequence_modelling.hmmviz as viz
 
@@ -35,12 +35,12 @@ def test():
     p, zeta, eta, D = 0.001, 0.45, 0.97, np.max(tau)
 
     # Create an  QDHMM and Gaussian emmission object to sample data
-    emmissionModel = emissionplus.Gaussian(
+    emmissionModel = Gaussian(
         mu=np.array([[532.23915, 86.69044, 45.2, 26.552]]),
         var=np.array([[[7568.806]], [[58.944]], [[28.944]], [[2.025350]]]),
         tau=tau,
     )
-    samplemodel = qdhmm.QDHMM(p, zeta, eta, emmissionModel)
+    samplemodel = QDHMM(p, zeta, eta, emmissionModel)
 
     # sample data from the emmission model
 
@@ -68,7 +68,7 @@ def test():
     )
 
     # Create an  HMM and Gaussian emmission object
-    emmissionModel = emissions.Gaussian(
+    emmissionModel = hmmGaussian(
         mu=np.array([[932.23915, 46.69044, 45.2, 26.552]]),
         covar=np.array([[[7568.806]], [[158.944]], [[78.944]], [[8.025350]]]),
     )
@@ -107,7 +107,7 @@ def test():
     print("Posterior distribution duration estimation:", duration)
 
     # Visualize
-    uniqueid = "output/qdhmmtest"
+    uniqueid = "tests/sequence_modelling/output/qdhmmtest"
     from matplotlib.pyplot import figure, show
     from matplotlib.backends.backend_pdf import PdfPages
 
