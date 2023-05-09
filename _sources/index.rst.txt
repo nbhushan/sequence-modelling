@@ -6,24 +6,22 @@
 Welcome to sequence-modelling's documentation!
 ==============================================
 
-Numerically optimized sequence modelling in Python.
+Numerically optimized time-series and sequence modelling in Python.
 
 Key features
 ------------
 - Hidden Markov Models and Quasi-Deterministic Hidden Markov Models
-- Numerically optimized for speed
+- Numerically stable: floating point arithmetic performed in log space to avoid underflow
 - Easy to use (see examples below)
 - Pure Python and Numpy based
 - Open source and commercially usable (BSD license)
-
-
 
 
 .. toctree::
    :maxdepth: 
    :caption: Modules:
 
-   sequence_modelling
+   docs/sequence_modelling
 
 Indices and tables
 ==================
