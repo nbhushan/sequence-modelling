@@ -3,27 +3,27 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sequence modelling's documentation!
+Welcome to sequence-modelling's documentation!
 ==============================================
 
+Numerically optimized sequence modelling in Python.
+
+Key features
+------------
+- Hidden Markov Models and Quasi-Deterministic Hidden Markov Models
+- Numerically optimized for speed
+- Easy to use (see examples below)
+- Pure Python and Numpy based
+- Open source and commercially usable (BSD license)
+
+
+
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 
+   :caption: Modules:
 
-.. automodule:: hmm
-   :members:
-
-.. automodule:: qdhmm
-   :members:
-
-.. automodule:: emissions
-   :members:
-
-.. automodule:: emissionplus
-   :members:
-
-
-
+   sequence_modelling
 
 Indices and tables
 ==================
