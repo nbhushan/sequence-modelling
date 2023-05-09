@@ -50,6 +50,47 @@
 <p>pi, the initial state distribution is the last row of the transition
 matrix ‘A’. i.e.  pi = A[-1].
 Number of States: K = A.shape[1]</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># import the only external dependency</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#import package modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sequence_modelling.hmm</span> <span class="kn">import</span> <span class="n">StandardHMM</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sequence_modelling.emissions</span> <span class="kn">import</span> <span class="n">Gaussian</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sequence_modelling</span> <span class="kn">import</span> <span class="n">hmmviz</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the model parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the transition matrix A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the emission object B</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">O</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="p">(</span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]),</span>
+<span class="gp">... </span>             <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>                             <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Build the HMM model object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hmm</span> <span class="o">=</span> <span class="n">StandardHMM</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">O</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sample from the generative model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obs</span><span class="p">,</span> <span class="n">zes</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fit the model to the data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">likelihood</span><span class="p">,</span> <span class="n">ll</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">rankn</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdmodel</span><span class="o">.</span><span class="n">hmmFit</span><span class="p">(</span>
+<span class="go">    obs, maxiter=1, debug=False)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Decode the most likely state sequence using the Viterbi algorithm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_path</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">viterbi</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Visualize the state sequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hmmviz</span><span class="o">.</span><span class="n">plot_state_sequence</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">decoded_path</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">O</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">O</span><span class="o">.</span><span class="n">covar</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="hmm.StandardHMM.alpha">
 <span class="sig-name descname"><span class="pre">alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.alpha" title="Permalink to this definition">¶</a></dt>
@@ -99,7 +140,7 @@ Y_n+1..Y_N, given Z_n.</p>
 scaling factors used here. Note that this scaling methods is suitable
 when the dynamics of the system is not highly sparse. Adaptation of
 log-scaling in the QDHMM would require the use to construct a new
-sparse data structure</p>
+sparse data structure.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets">1</span></dt>
 <dd><p>Mann, T. P. Numerically Stable Hidden Markov Model
@@ -576,79 +617,6 @@ QDHMM Emission model.</p>
 
 </dd></dl>
 
-<span class="target" id="module-hmmviz"></span><p>Created on Tue Apr 23 12:04:01 2013</p>
-<p>&#64;author: nbhushan</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="hmmviz.plotcontour">
-<span class="sig-prename descclassname"><span class="pre">hmmviz.</span></span><span class="sig-name descname"><span class="pre">plotcontour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmmviz.plotcontour" title="Permalink to this definition">¶</a></dt>
-<dd><p>Visualize the combinatorial search.</p>
-<p>Visualize the propogation of the search using contour lines.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="hmmviz.view_EMconvergence">
-<span class="sig-prename descclassname"><span class="pre">hmmviz.</span></span><span class="sig-name descname"><span class="pre">view_EMconvergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ll</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmmviz.view_EMconvergence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Visualize the variation of the llh during each iteration of
-the EM algorithm. Note: THE LLH MUST MONOTONICALLY INCREASE.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="hmmviz.view_postduration">
-<span class="sig-prename descclassname"><span class="pre">hmmviz.</span></span><span class="sig-name descname"><span class="pre">view_postduration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reslist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranknlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmmviz.view_postduration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Visualize the estimated state durations based on the posterior
-distribution.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="hmmviz.view_statedurations">
-<span class="sig-prename descclassname"><span class="pre">hmmviz.</span></span><span class="sig-name descname"><span class="pre">view_statedurations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmmviz.view_statedurations" title="Permalink to this definition">¶</a></dt>
-<dd><p>View histograms of state duration.</p>
-<p>The frequencies are obtained from the Viterbi sequence.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="hmmviz.view_viterbi">
-<span class="sig-prename descclassname"><span class="pre">hmmviz.</span></span><span class="sig-name descname"><span class="pre">view_viterbi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmmviz.view_viterbi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Visualize the Viterbi sequence.</p>
-</dd></dl>
-
-<span class="target" id="module-utils"></span><p>Created on Tue Jun 11 16:26:49 2013</p>
-<p>&#64;author: nbhushan</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="utils.logsumexp">
-<span class="sig-prename descclassname"><span class="pre">utils.</span></span><span class="sig-name descname"><span class="pre">logsumexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.logsumexp" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Compute the log of the sum of exponentials of input elements,</dt><dd><p>Modified scipy.misc logsumexp to accept [-inf,-inf].</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>a<span class="classifier">array_like</span></dt><dd><p>Input array.</p>
-</dd>
-<dt>axis<span class="classifier">int, optional</span></dt><dd><p>Axis over which the sum is taken. By default <cite>axis</cite> is None,
-and all elements are summed.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>res<span class="classifier">ndarray</span></dt><dd><p>The result, <code class="docutils literal notranslate"><span class="pre">np.log(np.sum(np.exp(a)))</span></code> calculated in a numerically
-more stable way.</p>
-</dd>
-</dl>
-<p>numpy.logaddexp, numpy.logaddexp2</p>
-<p>Numpy has a logaddexp function which is very similar to <cite>logsumexp</cite>, but
-only handles two arguments. <cite>logaddexp.reduce</cite> is similar to this
-function, but may be less stable.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">logsumexp</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)))</span>
-<span class="go">9.4586297444267107</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logsumexp</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="go">9.4586297444267107</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<span class="target" id="module-qdhmm_logscaled"></span><p>Created on Thu May 30 15:38:44 2013</p>
-<p>&#64;author: nbhushan</p>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
