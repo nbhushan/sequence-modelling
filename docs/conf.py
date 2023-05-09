@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath("../src/sequence_modelling/"))
 # -- Project information -----------------------------------------------------
 
 project = "sequence modelling"
-copyright = "2023, Nitin Bhushan (bhushan.nitin@posteo.net)"
+copyright = f"{datetime.now().year} Nitin Bhushan"
 author = "Nitin Bhushan (bhushan.nitin@posteo.net)"
 
 # The full version, including alpha/beta/rc tags
@@ -64,6 +64,7 @@ html_sidebars = {
 }
 
 html_theme_options = {
+    "description": "Numerically optimized sequence modelling in Python.",
     "github_user": "nbhushan",
     "github_repo": "Quasi-Deterministic-HMMs",
     "github_button": "true",
