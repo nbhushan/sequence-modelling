@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>sequence-modelling &#8212; sequence modelling 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sequence-modelling">
+<h1>sequence-modelling<a class="headerlink" href="#sequence-modelling" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-hmm"></span><p>Created on Tue Apr 23 12:04:01 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="hmm.StandardHMM">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">hmm.</span></span><span class="sig-name descname"><span class="pre">StandardHMM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">O</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>The standard HMM object.</p>
+<dl class="simple">
+<dt>A<span class="classifier">ndarray</span></dt><dd><p>The transition distribution.</p>
+</dd>
+<dt>O<span class="classifier">object</span></dt><dd><p>The HMM emission model.</p>
+</dd>
+</dl>
+<p>pi, the initial state distribution is the last row of the transition
+matrix ‘A’. i.e.  pi = A[-1].
+Number of States: K = A.shape[1]</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># import the only external dependency</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#import package modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sequence_modelling.hmm</span> <span class="kn">import</span> <span class="n">StandardHMM</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sequence_modelling.emissions</span> <span class="kn">import</span> <span class="n">Gaussian</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sequence_modelling</span> <span class="kn">import</span> <span class="n">hmmviz</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define the model parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the transition matrix A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the emission object B</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">O</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="p">(</span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]),</span>
+<span class="gp">... </span>             <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>                             <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]))</span>
+<span class="gp">... </span>   
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Build the HMM model object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hmm</span> <span class="o">=</span> <span class="n">StandardHMM</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">O</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sample from the generative model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obs</span><span class="p">,</span> <span class="n">zes</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fit the model to the data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">likelihood</span><span class="p">,</span> <span class="n">ll</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">rankn</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdmodel</span><span class="o">.</span><span class="n">hmmFit</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="n">obs</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Decode the most likely state sequence using the Viterbi algorithm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_path</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">viterbi</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Visualize the state sequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hmmviz</span><span class="o">.</span><span class="n">plot_state_sequence</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">decoded_path</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">O</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">O</span><span class="o">.</span><span class="n">covar</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute alpha (forward) distribution.</p>
+<blockquote>
+<div><p>alpha [i,n] =  joint probability of being in state i,
+after observing 1..N observations.   .</p>
+</div></blockquote>
+<dl class="simple">
+<dt>logB<span class="classifier">ndarray</span></dt><dd><p>The observation probability matrix in logarithmic space.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>logalpha<span class="classifier">ndarray</span></dt><dd><p>The log scaled alpha distribution.</p>
+</dd>
+</dl>
+<p>Refer to Tobias Man’s paper <a href="#id17"><span class="problematic" id="id1">[1]_</span></a> for the motivation behind the
+scaling factors used here. Note that this scaling methods is suitable
+when the dynamics of the system is not highly sparse. Adaptation of
+log-scaling in the QDHMM would require the use to construct a new
+sparse data structure</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets">1</span></dt>
+<dd><p>Mann, T. P. Numerically Stable Hidden Markov Model
+Implementation 2006.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute beta (backward) distribution.</p>
+<blockquote>
+<div><p>beta [i,n] =  conditional probability generating observations
+Y_n+1..Y_N, given Z_n.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>logB<span class="classifier">ndarray</span></dt><dd><p>The observation probability matrix in logarithmic space.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>logbeta<span class="classifier">ndarray</span></dt><dd><p>The log scaled beta distribution.</p>
+</dd>
+</dl>
+<p>Refer to Tobias Man’s paper <a href="#id18"><span class="problematic" id="id3">[1]_</span></a> for the motivation behind the
+scaling factors used here. Note that this scaling methods is suitable
+when the dynamics of the system is not highly sparse. Adaptation of
+log-scaling in the QDHMM would require the use to construct a new
+sparse data structure.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets">1</span></dt>
+<dd><p>Mann, T. P. Numerically Stable Hidden Markov Model
+Implementation 2006.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.estimatepostduration">
+<span class="sig-name descname"><span class="pre">estimatepostduration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logalpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logbeta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rankn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.estimatepostduration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate state durations based on the posterior distribution.</p>
+<p>Since the durations are truncated by the timeout parameter, we use
+a distribution free method.</p>
+<dl class="simple">
+<dt>logalpha<span class="classifier">ndarray</span></dt><dd><p>Log scaled alpha distribution.</p>
+</dd>
+<dt>logbeta<span class="classifier">ndarray</span></dt><dd><p>Log scaled beta values.</p>
+</dd>
+<dt>logB<span class="classifier">ndarray</span></dt><dd><p>Observation probability distribution in log-space.</p>
+</dd>
+<dt>rankn<span class="classifier">ndarray</span></dt><dd><p>the top ranked ‘n’ for eah state ‘k’, used to estimate state durations.</p>
+</dd>
+<dt>g<span class="classifier">ndarray</span></dt><dd><p>log scaled posterior distribution (‘logGamma’)</p>
+</dd>
+<dt>llh<span class="classifier">float</span></dt><dd><p>the normalized log-likelihood.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>int</dt><dd><p>The estimated durations in each state.</p>
+</dd>
+<dt>ndarray</dt><dd><p>The expected value of the state duration at the ‘rankn’.</p>
+</dd>
+</dl>
+<p>The QDHMM EM algorithm requires good initial estimates of the model
+parameters in order to converge to a good solution. We propose a
+distribution free method to find the expected value of state durations
+in a standard HMM model, which is then used to initialize the QDHMM
+‘tau’ parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.estimateviterbiduration">
+<span class="sig-name descname"><span class="pre">estimateviterbiduration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.estimateviterbiduration" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Estimate the state durations based on the Viterbi decoded</dt><dd><p>state sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>path<span class="classifier">ndarray</span></dt><dd><p>The Viterbi decoded state sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>int</dt><dd><p>Estimated state durations based on the Viterbi path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.gammaKsi">
+<span class="sig-name descname"><span class="pre">gammaKsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.gammaKsi" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Compute gamma (posterior distribution) and Ksi (joint succesive</dt><dd><p>posterior distrbution) values.</p>
+</dd>
+</dl>
+<p>gamma [i,n] =  conditional probability of the event state ‘i’
+at time ‘n’, given the complete observation sequence.</p>
+<p>ksi[n,i,j]  = joint posterior probability of two succesive hidden
+states ‘i’ and ‘j’ at time ‘n’.</p>
+<dl class="simple">
+<dt>logB<span class="classifier">ndarray</span></dt><dd><p>The observation probability matrix in logarithmic space.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>llh<span class="classifier">float</span></dt><dd><p>The normalized log-likelihood.</p>
+</dd>
+<dt>logGamma<span class="classifier">ndarray</span></dt><dd><p>The log posterior distribution.</p>
+</dd>
+<dt>logKsi<span class="classifier">ndarray</span></dt><dd><p>The log joint posterior probability distribution.</p>
+</dd>
+<dt>logAlpha<span class="classifier">ndarray</span></dt><dd><p>The log scaled alpha distribution.</p>
+</dd>
+<dt>logBeta<span class="classifier">ndarray</span></dt><dd><p>The log scaled beta distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.hmmFit">
+<span class="sig-name descname"><span class="pre">hmmFit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.hmmFit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Fit the standard HMM to the given data using the (adapted Baum-Welch)</dt><dd><p>EM algorithm.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>obs<span class="classifier">list</span></dt><dd><p>The list of observations sequences where every sequence is a
+ndarray. The sequences can be of different length, but
+the dimension of the features needs to be identical.</p>
+</dd>
+<dt>maxiter<span class="classifier">int, optional</span></dt><dd><p>The maximum number of iterations of the EM algorithm. Default = 50.</p>
+</dd>
+<dt>epsilon<span class="classifier">float, optional</span></dt><dd><p>The minimum allowed threshold in the variation of the log-likelihood
+between succesive iterations of the EM algorithm. Once the variation
+exceeds ‘epsilon’ the algorithm is said to have converged.
+Default = 1e-6.</p>
+</dd>
+<dt>debug<span class="classifier">bool, optional</span></dt><dd><p>Display verbose On/off.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>float</dt><dd><p>The normalized log-likelihood.</p>
+</dd>
+<dt>list</dt><dd><p>The list of log-likelihoods for each iteration of the EM algorithm.
+To check for monotonicity of the log-likelihoods.</p>
+</dd>
+<dt>int</dt><dd><p>The duration estimates of each HMM state from the posterior
+distribution.</p>
+</dd>
+<dt>ndarray</dt><dd><p>The top ranked ‘n’  which are used to estimate the state
+durations.</p>
+</dd>
+<dt>ndarray</dt><dd><p>The expected value of the state durations obtained at
+the top ranked ‘n’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.rankn">
+<span class="sig-name descname"><span class="pre">rankn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ksi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.rankn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the top ranked ‘n’s used to estimate state durations.</p>
+<p>Find the top ranked ‘n’ s for which the posterior probability of
+transitioning into the state ‘k’ given we were not at state ‘k’
+at time ‘n-1’.</p>
+<dl class="simple">
+<dt>ksi<span class="classifier">ndarray</span></dt><dd><p>The joint sucesive posterior distribution in log-space</p>
+</dd>
+<dt>rank<span class="classifier">int, optional</span></dt><dd><p>The number of the ranked ‘n’ which we chose to use to
+estimate state durations.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>rankn<span class="classifier">ndarray</span></dt><dd><p>the top ranked ‘n’s for each state. Used to estimate state durations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an observation sequence of length N.</p>
+<dl class="simple">
+<dt>dim<span class="classifier">int</span></dt><dd><p>The dimension of the data (univariate=1, etc..).</p>
+</dd>
+<dt>N<span class="classifier">int</span></dt><dd><p>The length of the observation sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>obs<span class="classifier">ndarray</span></dt><dd><p>An array of N observations.</p>
+</dd>
+<dt>zes<span class="classifier">ndarray</span></dt><dd><p>The state sequence that generated the data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hmm.StandardHMM.viterbi">
+<span class="sig-name descname"><span class="pre">viterbi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmm.StandardHMM.viterbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Most probable path based on Viterbi algorithm.</p>
+<blockquote>
+<div><p>Most probable state sequence = argmax_z P(Z|X)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>obs<span class="classifier">array_like</span></dt><dd><p>Observation sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>path<span class="classifier">ndarray</span></dt><dd><p>The Viterbi decoded state sequence.</p>
+</dd>
+</dl>
+<p>Refer to Rabiner’s paper <a href="#id19"><span class="problematic" id="id5">[1]_</span></a> or the original Viterbi paper <a href="#id20"><span class="problematic" id="id6">[2]_</span></a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets">1</span></dt>
+<dd><p>Rabiner, L. A tutorial on hidden Markov models and selected
+applications in speech recognition Proceedings of the IEEE,
+1989, 77, 257-286.</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets">2</span></dt>
+<dd><p>Viterbi, A. Error bounds for convolutional codes and an
+asymptotically optimum decoding algorithm Information Theory,
+IEEE Transactions on, 1967, 13, 260-269</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-qdhmm"></span><p>Created on Thu May 30 15:38:44 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="qdhmm.QDHMM">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">qdhmm.</span></span><span class="sig-name descname"><span class="pre">QDHMM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zeta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">O</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>The QDHMM object.</p>
+<dl class="simple">
+<dt>p<span class="classifier">float</span></dt><dd><p>initial probability distribution for the active state.</p>
+</dd>
+<dt>zeta<span class="classifier">float</span></dt><dd><p>probability of self transitions in active state.</p>
+</dd>
+<dt>eta<span class="classifier">float</span></dt><dd><p>probability of self transitions in inactive state.</p>
+</dd>
+<dt>O<span class="classifier">object</span></dt><dd><p>QDHMM Emission Model</p>
+</dd>
+</dl>
+<p>The QDHMM is an extension to a standard HMM.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute alpha (forward) values.</p>
+<blockquote>
+<div><p>alpha [i,n] =  joint probability of being in state i,
+after observing 1..N observations.   .</p>
+</div></blockquote>
+<dl class="simple">
+<dt>B<span class="classifier">ndarray</span></dt><dd><p>The observation probability matrix.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>alphahat<span class="classifier">ndarray</span></dt><dd><p>The scaled alpha values.</p>
+</dd>
+<dt>c<span class="classifier">ndarray</span></dt><dd><p>The scaling factors.</p>
+</dd>
+</dl>
+<p>Refer to Rabiner’s paper <a href="#id21"><span class="problematic" id="id9">[1]_</span></a> for the scaling factors used here.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id10"><span class="brackets">1</span></dt>
+<dd><p>Rabiner, L. A tutorial on hidden Markov models and selected
+applications in speech recognition Proceedings of the IEEE,
+1989, 77, 257-286.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute beta (backward) values.</p>
+<blockquote>
+<div><p>beta [i,n] =  conditional probability generating observations
+Y_n+1..Y_N, given Z_n.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>B<span class="classifier">ndarray</span></dt><dd><p>The observation probability matrix.</p>
+</dd>
+<dt>c<span class="classifier">ndarray</span></dt><dd><p>The scaling factors obtained from the alpha computation</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>betahat<span class="classifier">ndarray</span></dt><dd><p>The scaled beta values.</p>
+</dd>
+</dl>
+<p>DO NOT call the beta function before calling the alpha function.
+Refer to Rabiner’s paper <a href="#id22"><span class="problematic" id="id11">[1]_</span></a> for the scaling factors used here.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id12"><span class="brackets">1</span></dt>
+<dd><p>Rabiner, L. A tutorial on hidden Markov models and selected
+applications in speech recognition Proceedings of the IEEE,
+1989, 77, 257-286.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.buildTransmat">
+<span class="sig-name descname"><span class="pre">buildTransmat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.buildTransmat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds the sparse transition matrix.</p>
+<dl class="simple">
+<dt>A<span class="classifier">scipy.sparse.csr_matrix</span></dt><dd><p>The sparse transition matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.gammaKsi">
+<span class="sig-name descname"><span class="pre">gammaKsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.gammaKsi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute gamma (posterior distribution) values.</p>
+<blockquote>
+<div><p>gamma [i,n] =  conditional probability of the event state ‘i’
+at time ‘n’, given the complete observation sequence.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>B<span class="classifier">ndarray</span></dt><dd><p>The observation probability matrix.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>llh<span class="classifier">float</span></dt><dd><p>The normalized log-likelihood.</p>
+</dd>
+<dt>gamma<span class="classifier">ndarray</span></dt><dd><p>The posterior distribution.</p>
+</dd>
+<dt>float</dt><dd><p>The number of tranisitions into the active state.</p>
+</dd>
+<dt>float</dt><dd><p>The number of transitions into the inactive states.</p>
+</dd>
+</dl>
+<p>Ksi is the joint succesive posterior distrbution.
+ksi[n,i,j]  = joint posterior probability of two succesive hidden
+states ‘i’ and ‘j’ at time ‘n’.
+In the QDHMM, Ksi is too large to fit in contiguous memory [N,K,K].
+Hence we estimate Ksi at every time step n, and store the relevant
+parameters required for the computation and zeta and eta
+(the transition parameters)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.qdhmmFit">
+<span class="sig-name descname"><span class="pre">qdhmmFit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metaheuristic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'local'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.qdhmmFit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Fit the QDHMM to the given data using the (adapted Baum-Welch)</dt><dd><p>EM algorithm.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>obs<span class="classifier">list</span></dt><dd><p>The list of observations sequences where every sequence is a
+ndarray. The sequences can be of different length, but
+the dimension of the features needs to be identical.</p>
+</dd>
+<dt>maxiter<span class="classifier">int, optional</span></dt><dd><p>The maximum number of iterations of the EM algorithm. Default = 50.</p>
+</dd>
+<dt>epsilon<span class="classifier">float, optional</span></dt><dd><p>The minimum allowed threshold in the variation of the log-likelihood
+between succesive iterations of the EM algorithm. Once the variation
+exceeds ‘epsilon’ the algorithm is said to have converged.
+Default = 1e-6.</p>
+</dd>
+<dt>debug<span class="classifier">bool, optional</span></dt><dd><p>Display verbose On/off.</p>
+</dd>
+<dt>metaheuristic<span class="classifier">{‘local’, ‘sa’, ‘genetic’}, optional</span></dt><dd><p>The meta-heuristic to be used to solve the objective in the M-step.
+‘local’ is simple local search. ‘genetic’ is genetic algorithm and
+‘sa’ is simulated annealing.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>float</dt><dd><p>The normalized log-likelihood.</p>
+</dd>
+<dt>list</dt><dd><p>The list of log-likelihoods for each iteration of the EM algorithm.
+To check for monotonicity of the log-likelihoods.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an observation sequence of length N.</p>
+<dl class="simple">
+<dt>dim<span class="classifier">int</span></dt><dd><p>The dimension of the data (univariate=1, etc..).</p>
+</dd>
+<dt>N<span class="classifier">int</span></dt><dd><p>The length of the observation sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>obs<span class="classifier">ndarray</span></dt><dd><p>An array of N observations.</p>
+</dd>
+<dt>zes<span class="classifier">ndarray</span></dt><dd><p>The state sequence that generated the data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qdhmm.QDHMM.viterbi">
+<span class="sig-name descname"><span class="pre">viterbi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qdhmm.QDHMM.viterbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Most probable path based on Viterbi algorithm.</p>
+<blockquote>
+<div><p>Most probable state sequence = argmax_z P(Z|X)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>obs<span class="classifier">array_like</span></dt><dd><p>Observation sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>path<span class="classifier">ndarray</span></dt><dd><p>The Viterbi decoded state sequence.</p>
+</dd>
+</dl>
+<p>Refer to Rabiner’s paper <a href="#id23"><span class="problematic" id="id13">[1]_</span></a> or the original Viterbi paper <a href="#id24"><span class="problematic" id="id14">[2]_</span></a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id15"><span class="brackets">1</span></dt>
+<dd><p>Rabiner, L. A tutorial on hidden Markov models and selected
+applications in speech recognition Proceedings of the IEEE,
+1989, 77, 257-286.</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets">2</span></dt>
+<dd><p>Viterbi, A. Error bounds for convolutional codes and an
+asymptotically optimum decoding algorithm Information Theory,
+IEEE Transactions on, 1967, 13, 260-269</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-emissionplus"></span><p>Created on Thu May 30 16:49:58 2013</p>
+<p>&#64;author: nbhushan</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="emissionplus.Gaussian">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">emissionplus.</span></span><span class="sig-name descname"><span class="pre">Gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emissionplus.Gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Gaussian emission model for a QDHMM.</p>
+<dl class="simple">
+<dt>mu<span class="classifier">ndarray</span></dt><dd><p>mean, ‘mu’ is defined by  ndarray of shape [d, K]. Where
+d is the dimension of the features and K is the total number of
+states.</p>
+</dd>
+<dt>var<span class="classifier">ndarray</span></dt><dd><p>variance,
+‘var’ is defined by  ndarray of shape [K, d, d]. Where
+d is the dimension of the features and K is the total number of
+states. Note: borrowed from standard HMM ‘covar’.</p>
+</dd>
+<dt>tau<span class="classifier">ndarray</span></dt><dd><p>The time-out parameters. Note: if the individual timeouts
+are t1,t2, t3.. then tau = [0, t1, t1+t2, t1+t2+t3, .. ]</p>
+</dd>
+</dl>
+<p>D is the cumulative sum of the individual timeouts + 2.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="emissionplus.Gaussian.Fit">
+<span class="sig-name descname"><span class="pre">Fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimatetau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metaheuristic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emissionplus.Gaussian.Fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a Gaussian to the state distributions after observing the data.</p>
+<dl class="simple">
+<dt>obs<span class="classifier">ndarray</span></dt><dd><p>Observation sequence.</p>
+</dd>
+<dt>weights<span class="classifier">ndarray</span></dt><dd><p>The weights attached to each state (posterior distribution).</p>
+</dd>
+<dt>estimatetau<span class="classifier">bool</span></dt><dd><p>Find optimal tau’s Yes/No</p>
+</dd>
+<dt>metaheuristic<span class="classifier">{‘local’, ‘sa’, ‘genetic’}, optional</span></dt><dd><p>The meta-heuristic to be used to solve the objective in the M-step.
+‘local’ is simple local search. ‘genetic’ is genetic algorithm and
+‘sa’ is simulated annealing.</p>
+</dd>
+</dl>
+<p>Estimation of the tau parameters is done every alternate iteration
+of the QDHMM EM algorithm.
+Call viz.plotcontour only if you wish to view the search propogation.
+Recommended for search in a small space.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="emissionplus.Gaussian.Sample">
+<span class="sig-name descname"><span class="pre">Sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emissionplus.Gaussian.Sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a Gaussian observation sequence from a given state sequence.</p>
+<dl class="simple">
+<dt>stateseq<span class="classifier">ndarray</span></dt><dd><p>The state sequence which is used to generate the observation
+sequence.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>ndarray</dt><dd><p>Observation sequence.</p>
+</dd>
+</dl>
+<p>The observation sequence can only be univariate Gaussian in the
+QDHMM Emission model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="emissionplus.Gaussian.likelihood">
+<span class="sig-name descname"><span class="pre">likelihood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#emissionplus.Gaussian.likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>To compute likelihood of drawing an observation ‘y’ from a</dt><dd><p>given state:  P(x | Z_t) = N(mu,var).</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>obs<span class="classifier">ndarray</span></dt><dd><p>The observation sequence</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>logB<span class="classifier">ndarray</span></dt><dd><p>THe observation probability distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">sequence modelling</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=nbhushan&repo=Quasi-Deterministic-HMMs&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Nitin Bhushan (bhushan.nitin@posteo.net).
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/sequence_modelling.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
