@@ -10,6 +10,14 @@ Welcome to sequence modelling's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. automodule:: hmm
+   :members:
+
+.. automodule:: qdhmm
+   :members:
+
+.. automodule:: emissions
+   :members:
 
 
 Indices and tables
