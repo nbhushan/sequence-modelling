@@ -55,8 +55,10 @@ Example usage
 
 
 .. toctree::
-   :maxdepth:
-   :caption: Modules:
+    :hidden:
+    :glob:
+
+    *
 
    docs/sequence_modelling
 
