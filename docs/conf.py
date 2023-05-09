@@ -64,7 +64,6 @@ html_sidebars = {
 }
 
 html_theme_options = {
-    "description": "Numerically optimized sequence modelling in Python.",
     "github_user": "nbhushan",
     "github_repo": "Quasi-Deterministic-HMMs",
     "github_button": "true",
