@@ -15,6 +15,7 @@ Key features
 - Easy to use (based on the scikit-learn API)
 - Pure Python and Numpy based
 - Open source and commercially usable (BSD license)
+- Support for discrete and continuous emissions
 
 Example usage
 -------------
@@ -26,7 +27,7 @@ Example usage
    from sequence_modelling.hmm import StandardHMM
    import sequence_modelling.hmmviz as plt
 
-   # Define the model parameters
+   # Build a 3-state HMM model with two-dimensional Gaussian emissions
    # the transition matrix 
    A = np.array([[0.9, 0.1, 0.0],
                  [0.0, 0.9, 0.1],
