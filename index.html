@@ -42,6 +42,7 @@
 <li><p>Easy to use (based on the scikit-learn API)</p></li>
 <li><p>Pure Python and Numpy based</p></li>
 <li><p>Open source and commercially usable (BSD license)</p></li>
+<li><p>Support for discrete and continuous emissions</p></li>
 </ul>
 </section>
 <section id="example-usage">
@@ -51,7 +52,7 @@
 <span class="kn">from</span> <span class="nn">sequence_modelling.hmm</span> <span class="kn">import</span> <span class="n">StandardHMM</span>
 <span class="kn">import</span> <span class="nn">sequence_modelling.hmmviz</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="c1"># Define the model parameters</span>
+<span class="c1"># Build a 3-state HMM model with two-dimensional Gaussian emissions</span>
 <span class="c1"># the transition matrix</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
               <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
