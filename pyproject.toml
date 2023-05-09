@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "sequence_modelling"
+name = "qdhmm"
 version = "0.1.0"
 description = "sequence modelling using HMMs"
 authors = ["Nitin Bhushan <bhushan.nitin@posteo.net>"]
