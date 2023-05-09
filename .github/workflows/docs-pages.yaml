@@ -21,7 +21,7 @@ jobs:
         virtualenvs-create: true
         virtualenvs-in-project: true
     - name: install
-      run: poetry install -E amazon -E docs
+      run: poetry install -E docs
     - name: Build documentation
       run: |
         mkdir gh-pages
