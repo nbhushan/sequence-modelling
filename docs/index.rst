@@ -12,7 +12,7 @@ Key features
 ------------
 - Hidden Markov Models and Quasi-Deterministic Hidden Markov Models
 - Numerically stable: floating point arithmetic performed in log space to avoid underflow
-- Easy to use 
+- Easy to use (based on the scikit-learn API)
 - Pure Python and Numpy based
 - Open source and commercially usable (BSD license)
 
@@ -27,11 +27,11 @@ Example usage
    import sequence_modelling.hmmviz as plt
 
    # Define the model parameters
-   # the transition matrix A
+   # the transition matrix 
    A = np.array([[0.9, 0.1, 0.0],
                  [0.0, 0.9, 0.1],
                  [0.0, 0.0, 1.0]])
-   # the emission object B
+   # the emission object 
    O = Gaussian(mu = np.array([[0.0, 1.0, 2.0],
                                [0.0, 1.0, 2.0]]),
                covar = np.array([[0.1, 0.1, 0.1],
@@ -44,17 +44,14 @@ Example usage
    obs, zes = hmm.sample(dim=2, N=1000)
     ...
     # Fit the model to the data
-   likelihood, ll, duration, rankn, res = self.stdmodel.hmmFit(
-                     obs, maxiter=1, debug=False)
+   likelihood, ll, duration, rankn, res = hmm.fit(obs)
    
-   # Decode the most likely state sequence using the Viterbi algorithm
+   # Decode (Predict) the most likely state sequence using the Viterbi algorithm
    decoded_path = hmm.viterbi(obs)
    
    # Visualize the state sequence
    plt.plot_state_sequence(obs, decoded_path, hmm.O.mu, hmm.O.covar)
 
-Contents
-==================
 
 .. toctree::
    :maxdepth: 
