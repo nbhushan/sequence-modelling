@@ -20,7 +20,6 @@ sys.path.insert(0, os.path.abspath("../src/sequence_modelling/"))
 
 project = "sequence modelling"
 copyright = f"{datetime.now().year} Nitin Bhushan"
-author = "Nitin Bhushan (bhushan.nitin@posteo.net)"
 
 # The full version, including alpha/beta/rc tags
 release = "0.1.0"
