@@ -34,7 +34,7 @@ class StandardHMM:
     matrix 'A'. i.e.  pi = A[-1].
     Number of States: K = A.shape[1]
 
-    Basic Usage
+    Examples
     --------
     >>> # import the only external dependency
     >>> import numpy as np
@@ -42,7 +42,7 @@ class StandardHMM:
     >>> from sequence_modelling.hmm import StandardHMM
     >>> from sequence_modelling.emissions import Gaussian
     >>> from sequence_modelling import hmmviz
-
+    ...
     >>> # Define the model parameters
     >>> # the transition matrix A
     >>> A = np.array([[0.9, 0.1, 0.0],
@@ -53,20 +53,20 @@ class StandardHMM:
     ...                             [0.0, 1.0, 2.0]]),
     ...              covar = np.array([[0.1, 0.1, 0.1],
     ...                              [0.1, 0.1, 0.1]]))
-    
+    ...    
     >>> # Build the HMM model object
     >>> hmm = StandardHMM(A, O)
-
+    ...
     >>> # Sample from the generative model
     >>> obs, zes = hmm.sample(dim=2, N=1000)
-
+    ...
     >>> # Fit the model to the data
     >>> likelihood, ll, duration, rankn, res = self.stdmodel.hmmFit(
-        obs, maxiter=1, debug=False)
-
+    ...    obs, maxiter=1, debug=False)
+    ...
     >>> # Decode the most likely state sequence using the Viterbi algorithm
     >>> decoded_path = hmm.viterbi(obs)
-
+    ...
     >>> # Visualize the state sequence
     >>> hmmviz.plot_state_sequence(obs, decoded_path, hmm.O.mu, hmm.O.covar)
     """
