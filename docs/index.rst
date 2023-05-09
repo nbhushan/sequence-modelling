@@ -19,6 +19,19 @@ Welcome to sequence modelling's documentation!
 .. automodule:: emissions
    :members:
 
+.. automodule:: emissionplus
+   :members:
+
+.. automodule:: hmmviz
+   :members:
+
+.. automodule:: utils
+   :members:
+
+.. automodule:: qdhmm_logscaled
+
+
+
 
 Indices and tables
 ==================
