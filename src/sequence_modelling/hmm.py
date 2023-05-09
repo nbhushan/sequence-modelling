@@ -53,7 +53,7 @@ class StandardHMM:
     ...                             [0.0, 1.0, 2.0]]),
     ...              covar = np.array([[0.1, 0.1, 0.1],
     ...                              [0.1, 0.1, 0.1]]))
-    ...    
+    ...
     >>> # Build the HMM model object
     >>> hmm = StandardHMM(A, B)
     """
