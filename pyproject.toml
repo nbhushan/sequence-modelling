@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "sequence_modelling"
 version = "0.1.0"
-description = ""
-authors = ["Nitin"]
+description = "sequence modelling using HMMs"
+authors = ["Nitin Bhushan <bhushan.nitin@posteo.net>"]
 readme = "README.md"
+license = "BSD-2-Clause"
 
 
 [tool.poetry.dependencies]
