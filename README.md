@@ -1,8 +1,6 @@
-[![tests](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml)
+[![tests](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml) [![docs](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml) 
 
-[![docs](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml)
-
-# Welcome to sequence-modelling's documentation!
+# sequence-modelling
 
 Numerically optimized time-series and sequence modelling in Python.
 
@@ -47,7 +45,7 @@ The easiest way to install sequence-modelling is using pip:
    hmm = StandardHMM(A, O)
 
    # Sample 1000 observations from the generative model
-   obs, zes = hmm.sample(dim=1, N=1000)
+   obs, path = hmm.sample(dim=1, N=1000)
 
     # Fit the model to the data
    likelihood, ll, duration, rankn, res = hmm.fit(obs)
