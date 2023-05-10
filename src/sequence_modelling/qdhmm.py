@@ -339,9 +339,7 @@ class QDHMM:
         )
         return (loglikelihood / N, Gamma, np.sum(_temp_zeta), np.sum(_temp_eta))
 
-    def qdhmmFit(
-        self, obs, maxiter=50, epsilon=1e-5, debug=False, metaheuristic="local"
-    ):
+    def fit(self, obs, maxiter=50, epsilon=1e-5, debug=False, metaheuristic="local"):
         """Fit the QDHMM to the given data using the (adapted Baum-Welch)
            EM algorithm.
 

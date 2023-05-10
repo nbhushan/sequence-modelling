@@ -140,7 +140,7 @@ class StandardHMM:
         N = obs.shape[1]
         logB = np.zeros((K, N))
         path = np.zeros((N), int)
-        # calcualte emission likelihoods
+        # calculate emission likelihoods
         logB = self.O.loglikelihood(obs)
         assert logB.shape == (K, N)
         V = np.zeros((K, N))
@@ -297,7 +297,7 @@ class StandardHMM:
             logKsi[n, :, :] -= logsumexp(logKsi[n, :, :].flatten())
         return (loglikelihood, logGamma, logKsi, logAlpha, logBeta)
 
-    def hmmFit(self, obs, maxiter=50, epsilon=0.0001, debug=False):
+    def fit(self, obs, maxiter=50, epsilon=0.0001, debug=True):
         """Fit the standard HMM to the given data using the (adapted Baum-Welch)
            EM algorithm.
 

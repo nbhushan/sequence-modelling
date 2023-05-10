@@ -81,7 +81,7 @@ def test():
     print("*" * 80)
 
     # Fit the model to the data and print results
-    newloglikehood, ll, duration, rankn, res = trainmodel.hmmFit(
+    newloglikehood, ll, duration, rankn, res = trainmodel.fit(
         obs, maxiter=20, epsilon=1e-6, debug=True
     )
     path = [None] * numseq

@@ -66,7 +66,7 @@ def test_qdhmm():
         "Initial Model used to initialize EM obtained by a random guess \n", initmodel
     )
     start_time = time.time()
-    likelihood, ll = initmodel.qdhmmFit(obs, 10, 1e-6, True)
+    likelihood, ll = initmodel.fit(obs, 10, 1e-6, True)
     end_time = time.time()
     print("Time taken to estimate parameters (s) :", (end_time - start_time))
     path = [None] * len(obs)

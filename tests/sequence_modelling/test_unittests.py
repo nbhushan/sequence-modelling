@@ -134,7 +134,7 @@ class StandardHMMUnitTests(unittest.TestCase):
         obs = [np.newaxis] * len(N)
         for n in range(len(N)):
             obs[n], zes = self.stdmodel.sample(dim=dim, N=N[n])
-        self.stdmodel.hmmFit(obs)
+        self.stdmodel.fit(obs)
         log.debug("StandardHMMUnitTests.testHMMFit --end")
 
     def test_Alpha(self):
@@ -144,7 +144,7 @@ class StandardHMMUnitTests(unittest.TestCase):
             "tests/sequence_modelling/data/univariate_unittest.csv", delimiter=","
         )
         obs[0] = obs[0][np.newaxis]
-        likelihood, ll, duration, rankn, res = self.stdmodel.hmmFit(
+        likelihood, ll, duration, rankn, res = self.stdmodel.fit(
             obs, maxiter=1, debug=False
         )
         np.testing.assert_allclose(likelihood, -7.976166, rtol=1e-5, atol=0)
@@ -158,7 +158,7 @@ class StandardHMMUnitTests(unittest.TestCase):
             "tests/sequence_modelling/data/univariate_unittest.csv", delimiter=","
         )
         obs[0] = obs[0][np.newaxis]
-        likelihood, ll, duration, rankn, res = self.stdmodel.hmmFit(
+        likelihood, ll, duration, rankn, res = self.stdmodel.fit(
             obs, 10, 1e-6, debug=False
         )
         np.testing.assert_allclose(
