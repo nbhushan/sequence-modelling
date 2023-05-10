@@ -33,7 +33,7 @@ Example usage
 .. code-block:: python
 
    import numpy as np
-   from sequence_modelling.emissions import Gaussian
+   from sequence_modelling.emmissions import Gaussian
    from sequence_modelling.hmm import StandardHMM
    import sequence_modelling.hmmviz as plt
 
