@@ -43,7 +43,7 @@ The easiest way to install sequence-modelling is using pip:
    hmm = StandardHMM(A, O)
 
    # Sample from the generative model
-   obs, zes = hmm.sample(dim=2, N=1000)
+   obs, zes = hmm.sample(dim=1, N=1000)
 
     # Fit the model to the data
    likelihood, ll, duration, rankn, res = hmm.fit(obs)
