@@ -15,10 +15,9 @@ Numerically optimized time-series and sequence modelling in Python.
 
 The easiest way to install sequence-modelling is using pip:
 
-.. code-block:: bash
-
+```python
    pip install sequence-modelling
-
+```
 
 ## Example usage
 
