@@ -11,7 +11,7 @@ Numerically optimized time-series and sequence modelling in Python.
 - Easy to use (based on the scikit-learn API)
 - Pure Python and Numpy based
 - Open source and commercially usable (BSD license)
-- Support for discrete and continuous emissions
+- Support for discrete and continuous (Gaussian) emissions
 
 ## Installation
 
