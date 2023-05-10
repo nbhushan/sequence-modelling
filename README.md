@@ -26,7 +26,7 @@ The easiest way to install sequence-modelling is using pip:
 ```python
 
    import numpy as np
-   from sequence_modelling.emissions import Gaussian
+   from sequence_modelling.emmissions import Gaussian
    from sequence_modelling.hmm import StandardHMM
    import sequence_modelling.hmmviz as plt
 
