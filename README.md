@@ -59,4 +59,5 @@ The easiest way to install sequence-modelling is using pip:
    plt.view_viterbi(fa.add_subplot(1, 1, 1), [obs], [decoded_path], hmm.O.mu, seq=0)
    fa.tight_layout()
    show()
+   
 ```
