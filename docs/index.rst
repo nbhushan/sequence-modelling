@@ -37,16 +37,16 @@ Example usage
    from sequence_modelling.hmm import StandardHMM
    import sequence_modelling.hmmviz as plt
 
-   # Build a 3-state HMM model with two-dimensional Gaussian emissions
+   # Build a 2-state HMM model with one-dimensional Gaussian emissions
+
    # the transition matrix
-   A = np.array([[0.9, 0.1, 0.0],
-                 [0.0, 0.9, 0.1],
-                 [0.0, 0.0, 1.0]])
+   A = np.array([[0.6, 0.4],
+                 [0.3, 0.7],
+                 [0.5, 0.5]])
+
    # the emission object
-   O = Gaussian(mu = np.array([[0.0, 1.0, 2.0],
-                               [0.0, 1.0, 2.0]]),
-               covar = np.array([[0.1, 0.1, 0.1],
-                                 [0.1, 0.1, 0.1]]))
+   O = Gaussian(mu=np.array([[-100.0, 100.0]]),
+             covar=np.array([[[10.0]], [[10.0]]]))
 
    # Build the HMM model object
    hmm = StandardHMM(A, O)

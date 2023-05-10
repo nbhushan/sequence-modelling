@@ -1,24 +1,57 @@
-# Quasi-deterministic Hidden Markov Models.
+# Welcome to sequence-modelling's documentation!
 
-Stochastic models such as Hidden Markov Models (HMM) are widely used to model the
-temporal evolution of a process. In a HMM, the state duration is a-priori and implicitly
-assumed to be geometrically distributed in order to make the underlying process Markovian.
+Numerically optimized time-series and sequence modelling in Python.
 
-However, this assumption does not always hold. Existing HMM state duration modelling
-methods are reviewed and their drawbacks in the context of load modelling are revealed.
-This thesis aims to address their drawbacks in a specific context by proposing a
-Quasi-Deterministic Hidden Markov Model (QDHMM). Specifically, we extend the HMM to
-model sequential data where the state durations follow a truncated distribution and the
-dynamics of the model are dependant on whether the truncation was reached.
+## Key features
 
-We formalize the model and adapt the Expectation Maximization (EM) algorithm to
-estimate maximum likelihood solutions of the model parameters. To obtain good initial
-estimates for the QDHMM EM algorithm, a distribution free method is developed to obtain
-expected values of state durations in a HMM. To drive the EM algorithm towards a good
-solution space, combinatorial optimization heuristics and meta-heuristics are researched.
-Simulated annealing is identified as a solution and a heuristic is developed to sample
-candidate solutions which lead to a good approximation of the global optimum.
+- Hidden Markov Models and Quasi-Deterministic Hidden Markov Models
+- Numerically stable: floating point arithmetic performed in log space to avoid underflow
+- Easy to use (based on the scikit-learn API)
+- Pure Python and Numpy based
+- Open source and commercially usable (BSD license)
+- Support for discrete and continuous emissions
 
-Experiments were performed on modelling the internal electrical power consumption
-characteristic of printers based on real power data. The QDHMM is shown to provide an
-accurate descriptive model in comparison to the standard HMM without loss of parsimony.
+## Installation
+
+The easiest way to install sequence-modelling is using pip:
+
+.. code-block:: bash
+
+   pip install sequence-modelling
+
+
+## Example usage
+
+```python
+
+   import numpy as np
+   from sequence_modelling.emissions import Gaussian
+   from sequence_modelling.hmm import StandardHMM
+   import sequence_modelling.hmmviz as plt
+
+   # Build a 2-state HMM model with one-dimensional Gaussian emissions
+
+   # the transition matrix
+   A = np.array([[0.6, 0.4],
+                 [0.3, 0.7],
+                 [0.5, 0.5]])
+
+   # the emission object
+   O = Gaussian(mu=np.array([[-100.0, 100.0]]),
+             covar=np.array([[[10.0]], [[10.0]]]))
+
+   # Build the HMM model object
+   hmm = StandardHMM(A, O)
+
+   # Sample from the generative model
+   obs, zes = hmm.sample(dim=2, N=1000)
+
+    # Fit the model to the data
+   likelihood, ll, duration, rankn, res = hmm.fit(obs)
+
+   # Decode (Predict) the most likely state sequence using the Viterbi algorithm
+   decoded_path = hmm.viterbi(obs)
+
+   # Visualize the state sequence
+   plt.plot_state_sequence(obs, decoded_path, hmm.O.mu, hmm.O.covar)
+```
