@@ -54,5 +54,9 @@ The easiest way to install sequence-modelling is using pip:
    decoded_path = hmm.viterbi(obs)
 
    # Visualize the state sequence
-   plt.plot_state_sequence(obs, decoded_path, hmm.O.mu, hmm.O.covar)
+   from matplotlib.pyplot import figure, show
+   fa = figure()
+   plt.view_viterbi(fa.add_subplot(1, 1, 1), [obs], [decoded_path], hmm.O.mu, seq=0)
+   fa.tight_layout()
+   show()
 ```
