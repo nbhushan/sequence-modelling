@@ -45,10 +45,10 @@ The easiest way to install sequence-modelling is using pip:
    hmm = StandardHMM(A, O)
 
    # Sample 1000 observations from the generative model
-   obs, path = hmm.sample(dim=1, N=1000)
+   obs, path = hmm.sample(dim=1, N=100)
 
     # Fit the model to the data
-   likelihood, ll, duration, rankn, res = hmm.fit(obs)
+   likelihood, ll, duration, rankn, res = hmm.hmmFit([obs])
 
    # Decode (Predict) the most likely state sequence using the Viterbi algorithm
    decoded_path = hmm.viterbi(obs)
