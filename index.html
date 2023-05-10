@@ -73,8 +73,8 @@
 <span class="c1"># Build the HMM model object</span>
 <span class="n">hmm</span> <span class="o">=</span> <span class="n">StandardHMM</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">O</span><span class="p">)</span>
 
-<span class="c1"># Sample from the generative model</span>
-<span class="n">obs</span><span class="p">,</span> <span class="n">zes</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="c1"># Sample 1000 observations from the generative model</span>
+<span class="n">obs</span><span class="p">,</span> <span class="n">zes</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 
  <span class="c1"># Fit the model to the data</span>
 <span class="n">likelihood</span><span class="p">,</span> <span class="n">ll</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">rankn</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">hmm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
