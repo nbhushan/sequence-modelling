@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu May 30 16:49:58 2013
+Emission distributions for QDHMM
 
 @author: nbhushan
+
 """
+
+import time
+import pdb
 
 import numpy as np
 from scipy.stats import norm
 
-# from scipy.optimize import anneal
-import time
 import sequence_modelling.DiscreteOptim as optim
 import sequence_modelling.hmmviz as viz
-import pdb
+
 
 
 class Gaussian:

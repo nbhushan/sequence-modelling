@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr 23 12:04:01 2013
+Visualization helpers
 
 @author: nbhushan
 

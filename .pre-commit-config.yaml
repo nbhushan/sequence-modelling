@@ -12,3 +12,8 @@ repos:
     rev: 23.1.0
     hooks:
     -   id: black
+- repo: https://github.com/pycqa/isort
+    rev: 5.11.2
+    hooks:
+    -   id: isort
+        
