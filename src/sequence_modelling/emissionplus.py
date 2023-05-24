@@ -16,7 +16,6 @@ import sequence_modelling.DiscreteOptim as optim
 import sequence_modelling.hmmviz as viz
 
 
-
 class Gaussian:
     """The Gaussian emission model for a QDHMM.
 
