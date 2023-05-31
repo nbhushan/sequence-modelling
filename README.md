@@ -1,4 +1,4 @@
-[![tests](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml) [![docs](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml)
+[![tests](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/app-test.yml) [![docs](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml/badge.svg?branch=master)](https://github.com/nbhushan/Quasi-Deterministic-HMMs/actions/workflows/docs-pages.yaml) [![build](https://github.com/nbhushan/sequence-modelling/actions/workflows/build-publish.yml/badge.svg?branch=master)](https://github.com/nbhushan/sequence-modelling/actions/workflows/build-publish.yml)
 
 # sequence-modelling
 
