@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr 23 12:04:01 2013
+Visualization utils
 
 @author: nbhushan
 
@@ -36,8 +36,8 @@ def view_viterbi(ax, obs, paths, mean, seq):
             label="State {0}: {1:g}".format(k, v),
         )
     ax.set_title("Viterbi State sequence; seq : " + str(seq))
-    ax.set_xlabel("time (s)")
-    ax.set_ylabel("Power (W)")
+    ax.set_xlabel("time")
+    ax.set_ylabel("obs")
     ax.legend(prop=dict(size="xx-small"))
 
 
@@ -67,8 +67,8 @@ def view_postduration(ax, obs, path, mean, reslist, ranknlist, seq):
             label="State {0}: {1:g}".format(k, v),
         )
     ax.set_title("HMM State duration estimation, seq :" + str(seq))
-    ax.set_xlabel("time ")
-    ax.set_ylabel("Power (W)")
+    ax.set_xlabel("time")
+    ax.set_ylabel("obs")
     ax.legend(prop=dict(size="xx-small"))
     for k in range(1, len(m) - 1):
         c = np.argsort(rankn[k])
@@ -118,7 +118,7 @@ def view_ksi(obs, ksi):
     az.colorbar()
     # az.plot(ksi[:,0, 1]*500, label = "Active to Idle")
     # az.plot(ksi[:,1, 2]*100, label = "Idle to Sleep")
-    az.set_ylabel("Power (W)")
+    az.set_ylabel("obs")
     az.set_title("Posterior probability of transitions from Active to Idle ")
     az.legend()
     show()
