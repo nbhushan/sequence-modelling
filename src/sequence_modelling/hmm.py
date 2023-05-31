@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr 23 12:04:01 2013
+The HMM class
 
 @author: nbhushan
+
 """
 
+import logging, sys, time, pdb
 import numpy as np
-import logging, sys
 from sequence_modelling.utils import logsumexp
-import time
-import pdb
 
 # set up the logger
 logger = logging.getLogger(__name__)

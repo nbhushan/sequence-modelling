@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu May 30 15:38:44 2013
+The QDHMM object
 
 @author: nbhushan
+
 """
 
 import numpy as np

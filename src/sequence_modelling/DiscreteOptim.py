@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Aug 19 17:16:56 2013
+Optimization methods for QDHMM
 
 @author: nbhushan
+
 """
 
-
-import numpy as np
 import random
 import itertools
+import numpy as np
 
 
 def objective(taus, K, obs, weights):

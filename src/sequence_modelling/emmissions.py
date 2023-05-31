@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr 23 12:02:37 2013
+Emission distributions for HMM
 
 @author: nbhushan
+
 """
 
 import numpy as np

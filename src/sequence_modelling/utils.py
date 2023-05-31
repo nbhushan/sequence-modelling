@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun 11 16:26:49 2013
+Numerical stability helpers
 
 @author: nbhushan
+
 """
 import numpy as np
 
