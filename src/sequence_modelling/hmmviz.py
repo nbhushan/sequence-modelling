@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-<<<<<<< HEAD
 Visualization utils
-=======
-Visualization helpers
->>>>>>> e46b045332b0c5febf7fa078d496fb9cf346c9bf
 
 @author: nbhushan
 
