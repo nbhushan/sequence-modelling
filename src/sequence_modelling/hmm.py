@@ -69,11 +69,12 @@ class StandardHMM:
         self.logA = np.log(A)
 
     def __repr__(self):
-        n = "" + "nStates: %d\n" % (self.K)
-        a = "" + "A:\n %s" % (str(np.exp(self.logA[:-1])))
-        pi = "" + "\nPi: \n %s" % (str(np.exp(self.logA[-1])))
-        o = "" + "\nObservation distribution: \n %s" % self.O
-        return n + a + pi + o
+        return (
+            f"nStates: {self.K}\n"
+            f"A:\n {self.logA[:-1].round(2)}\n"
+            f"Pi: \n {self.logA[-1].round(2)}\n"
+            f"Observation distribution: \n {self.O}"
+        )
 
     def sample(self, dim=1, N=1000):
         """Generates an observation sequence of length N.
