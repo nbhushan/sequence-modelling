@@ -5,8 +5,8 @@ Created on Tue Apr 23 12:05:45 2013
 @author: nbhushan
 """
 import numpy as np
-from emmissions import Discrete
-from hmm import StandardHMM
+from sequence_modelling.emmissions import Discrete
+from sequence_modelling.hmm import StandardHMM
 
 
 def test():
