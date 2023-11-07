@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sequence_modelling"
-version = "0.1.5"
+version = "0.1.6"
 description = "sequence modelling using HMMs"
 authors = ["Nitin Bhushan <bhushan.nitin@posteo.net>"]
 readme = "README.md"
